@@ -1,3 +1,5 @@
+#summary Shows the requirements for the project.
+
 == Normal Requirements ==
 
   * Nearest Bus Stop
