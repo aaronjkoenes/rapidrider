@@ -7,5 +7,5 @@
 
 While bus schedules for the Rapid, Grand Rapid's public bus transit system, are available online and in print, it can be a hassle to figure out the best route to a certain bus stops. Rapid Rider will allow a user to find the nearest bus stop near your location (based on GPS information). It will also provide you with departure times heading.
 
-The Raspid Rider database will store information on each buses' schedule and the location of each bus stop.  A GPS device will provide the user's location, and a simple map-based GUI will allow the user to choose a destination in the greater Grand Rapids area.  Rapid Rider will use all of this data to create a list of instructions for traveling via 
-the Rapid to the requested bus stop.
+The Raspid Rider database will store information on each buses' schedule and the location of each bus stop.  A GPS device will provide the user's location, and a simple map-based GUI will allow the user to choose a destination in the greater Grand Rapids area.  Rapid Rider will use all of this data to create a list of instructions for traveling via the 
+[http://www.ridetherapid.org/ Rapid] to the requested bus stop.
