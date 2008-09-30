@@ -1,4 +1,4 @@
-#summary this page displays the vision statement for the Rapid Rider project.
+#summary Displays the vision statement for the project.
 #labels Phase-Requirements
 
 == Vision Statement ==
