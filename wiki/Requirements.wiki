@@ -1,0 +1,16 @@
+== Normal Requirements ==
+
+  * Nearest Bus Stop
+  * Your GPS location
+  * Bus schedule information
+
+== Excited Requirements ==
+
+  * Give a bus route to the requested destination
+  * Using bus stop information to calculate transfers
+  * Tell what departure times you can make
+
+== Thrilling Requirements ==
+
+  * Give turn-by-turn directions to any destination
+  * Most efficient route based on Dijkstra's Algorithm
