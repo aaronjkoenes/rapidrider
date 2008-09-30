@@ -1,4 +1,5 @@
 #summary Shows the requirements for the project.
+#labels Phase-Requirements
 
 == Normal Requirements ==
 
