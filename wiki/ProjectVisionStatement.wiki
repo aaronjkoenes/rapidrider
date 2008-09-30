@@ -1,9 +1,9 @@
 #summary this page displays the vision statement for the Rapid Rider project.
 #labels Phase-Requirements
 
-= Vision Statement =
+== Vision Statement ==
 
-Rapid Rider
+=== Rapid Rider ===
 
 While bus schedules for the Rapid, Grand Rapid's public bus transit system, are available online and in print, it can be a hassle to figure out the best route to a certain bus stops. Rapid Rider will allow a user to find the nearest bus stop near your location (based on GPS information). It will also provide you with departure times heading.
 
