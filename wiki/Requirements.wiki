@@ -17,4 +17,4 @@
 
   * Give turn-by-turn directions to any destination
   * Most efficient route based on Dijkstra's Algorithm
-  * Have local data survive palm restarts.
+  * Have local data survive palm restarts (RMS)
