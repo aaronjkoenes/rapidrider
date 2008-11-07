@@ -18,7 +18,7 @@ public class GameBoard extends Form implements Runnable {
 	private Location location;
 	private String status;
 	private simpleLoc currentLoc;
-	private BusStop vclose, close, med, far;
+	private BusStop vvclose, vclose, close, med, far;
 	private Date currentDate;
 	private busRoute route;
 
@@ -39,10 +39,11 @@ public class GameBoard extends Form implements Runnable {
 		far = new BusStop(new simpleLoc(42.963218160220414, -85.66791325807571), "far");
 		*/
 		currentLoc = new simpleLoc(0, 0);
-		vclose = new BusStop(new simpleLoc(4, 9), "very close omg");
+		vclose = new BusStop(new simpleLoc(4, 9), "very close");
 		close = new BusStop(new simpleLoc(5, 10), "close");
 		med = new BusStop(new simpleLoc(15, 30), "medium");
 		far = new BusStop(new simpleLoc(25, 50), "far");
+		vvclose = new BusStop(new simpleLoc(2, 2), "very, VERY close");
 		
 		route = new busRoute("route 1");
 		route.setStops(med, close, far);
@@ -50,6 +51,7 @@ public class GameBoard extends Form implements Runnable {
 		route.addStop(med);
 		route.addStop(vclose);
 		route.addStop(far);
+		route.addStop(vvclose);
 	
 		append(locationString);
 //		append(courseString);
