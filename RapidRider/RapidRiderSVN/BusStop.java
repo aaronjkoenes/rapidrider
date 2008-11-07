@@ -1,4 +1,4 @@
-package RapidRider;
+package RapidRiderSVN;
 
 
 public class BusStop {
