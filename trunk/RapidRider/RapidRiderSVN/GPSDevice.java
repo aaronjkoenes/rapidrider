@@ -1,4 +1,4 @@
-package RapidRider;
+package RapidRiderSVN;
 // Sample code for CS 262
 // Keith Vander Linden, Calvin College
 // Fall 2006

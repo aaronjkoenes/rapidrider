@@ -1,4 +1,4 @@
-package RapidRider;
+package RapidRiderSVN;
 import java.util.Vector;
 
 //import java.util.Vector;
