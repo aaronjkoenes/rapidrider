@@ -1,0 +1,9 @@
+RapidRider CS 262 Project
+
+http://code.google.com/p/rapidrider/
+
+To setup an Eclipse project for RapidRider:
+  1. Check out the RapidRider source code with subversion.
+  2. Set the TIDALWAVE Eclipse variable to point to a Tidalwave jar file.
+
+Note to developers: Feel free to modify this file.
