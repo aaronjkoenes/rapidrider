@@ -3,7 +3,8 @@ RapidRider CS 262 Project
 http://code.google.com/p/rapidrider/
 
 To setup an Eclipse project for RapidRider:
-  1. Check out the RapidRider source code with subversion.
+  1. Check out the RapidRider source code with Subclipse.
   2. Set the TIDALWAVE Eclipse variable to point to a Tidalwave jar file.
+  3. Make sure the J2ME library is found in the build path.
 
 Note to developers: Feel free to modify this file.

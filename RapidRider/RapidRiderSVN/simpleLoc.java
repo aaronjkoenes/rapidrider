@@ -1,5 +1,6 @@
 package RapidRiderSVN;
 
+// Is this necessary?
 import java.lang.Math;
 
 public class simpleLoc {
