@@ -1,7 +1,4 @@
 package RapidRiderSVN;
-// Sample code for CS 262
-// Keith Vander Linden, Calvin College
-// Fall 2006
 
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
@@ -63,10 +60,13 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 			board.start();
 			board.removeCommand(cmdRestart);
 			board.addCommand(cmdPause);
-			board.addCommand(cmdFindLocation);  //will only be displayed after restart, should be after location has been aquired and we do have points to compare to
+			
+			// will only be displayed after restart, should be after location
+			// has been acquired and we do have points to compare to
+			board.addCommand(cmdFindLocation);
+			
 		} else if (c == cmdFindLocation) {
 			board.findNearest();
 		}
 	}
-
 }
