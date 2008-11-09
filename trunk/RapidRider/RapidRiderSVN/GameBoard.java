@@ -10,6 +10,7 @@ import java.util.Date;
 
 import ext.javax.microedition.location.Location;
 
+// TODO Change the name of this class.
 public class GameBoard extends Form implements Runnable {
 
 	private static final int DELAY = 1000; // in milliseconds
@@ -17,10 +18,10 @@ public class GameBoard extends Form implements Runnable {
 	private StringItem locationString, /*courseString, speedString,*/ timeString, statusString, nearestLocation;
 	private Location location;
 	private String status;
-	private simpleLoc currentLoc;
+	private SimpleLoc currentLoc;
 	private BusStop vvclose, vclose, close, med, far;
 	private Date currentDate;
-	private busRoute route;
+	private BusRoute route;
 
 	public GameBoard() {
 		super("Rapid Rider");
@@ -38,14 +39,14 @@ public class GameBoard extends Form implements Runnable {
 		med = new BusStop(new simpleLoc(42.95748842941581, -85.63509106636047), "medium");
 		far = new BusStop(new simpleLoc(42.963218160220414, -85.66791325807571), "far");
 		*/
-		currentLoc = new simpleLoc(0, 0);
-		vclose = new BusStop(new simpleLoc(4, 9), "very close");
-		close = new BusStop(new simpleLoc(5, 10), "close");
-		med = new BusStop(new simpleLoc(15, 30), "medium");
-		far = new BusStop(new simpleLoc(25, 50), "far");
-		vvclose = new BusStop(new simpleLoc(2, 2), "very, VERY close");
+		currentLoc = new SimpleLoc(0, 0);
+		vclose = new BusStop(new SimpleLoc(4, 9), "very close");
+		close = new BusStop(new SimpleLoc(5, 10), "close");
+		med = new BusStop(new SimpleLoc(15, 30), "medium");
+		far = new BusStop(new SimpleLoc(25, 50), "far");
+		vvclose = new BusStop(new SimpleLoc(2, 2), "very, VERY close");
 		
-		route = new busRoute("route 1");
+		route = new BusRoute("route 1");
 		route.setStops(med, close, far);
 		route.addStop(close);
 		route.addStop(med);
@@ -106,7 +107,7 @@ public class GameBoard extends Form implements Runnable {
 		float distance = 0;
 		float shortest = -1;
 		for(int i = 0; i < route.routeLength() ; i++ ) {
-			simpleLoc location = route.getstop(i).getLoc();
+			SimpleLoc location = route.getstop(i).getLoc();
 			distance = currentLoc.DistanceTo(location);
 			if( shortest > distance || shortest < 0) {
 				shortest = distance;

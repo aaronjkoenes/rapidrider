@@ -1,31 +1,29 @@
 package RapidRiderSVN;
 
-
 public class BusStop {
 
-	private simpleLoc myLoc;
+	private SimpleLoc myLoc;
+
 	private String myName;
 
-//	private long[] stopTimes;
-	
-	public BusStop() {
-		
-	}
-	
-	public BusStop(simpleLoc loc, String name) {
-		myLoc = loc; 
-		myName = name;
+	// private long[] stopTimes;
 
-//		stopTimes = new long[10];
+	public BusStop() {
+
 	}
-	
+
+	public BusStop(SimpleLoc loc, String name) {
+		myLoc = loc;
+		myName = name;
+		// stopTimes = new long[10];
+	}
+
 	public String getName() {
 		return myName;
 	}
-	
-	public simpleLoc getLoc() {
+
+	public SimpleLoc getLoc() {
 		return myLoc;
 	}
-	
-	
+
 }
