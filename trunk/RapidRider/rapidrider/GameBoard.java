@@ -3,11 +3,6 @@ package rapidrider;
 // Keith Vander Linden, Calvin College
 // Fall 2006
 
-import javax.microedition.lcdui.Form;
-import javax.microedition.lcdui.StringItem;
-//import java.lang.*;
-import java.util.Date;
-
 import ext.javax.microedition.location.Location;
 
 // TODO Change the name of this class.

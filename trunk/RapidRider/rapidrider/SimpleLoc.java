@@ -2,34 +2,34 @@ package rapidrider;
 
 public class SimpleLoc {
 	
-	private float myLat;
+	private double myLat;
 
-	private float myLon;
+	private double myLon;
 
 	public SimpleLoc() {
-		myLat = Float.NaN;
-		myLon = Float.NaN;
+		myLat = Double.NaN;
+		myLon = Double.NaN;
 	}
 
 	public SimpleLoc(double lat, double lon) {
-		myLat = (float) lat;
-		myLon = (float) lon;
+		myLat = lat;
+		myLon = lon;
 	}
 
-	public float getLat() {
+	public double getLat() {
 		return myLat;
 	}
 
-	public float getLon() {
+	public double getLon() {
 		return myLon;
 	}
 
 	public void setLat(double lat) {
-		myLat = (float) lat;
+		myLat = lat;
 	}
 
 	public void setLon(double lon) {
-		myLon = (float) lon;
+		myLon = lon;
 	}
 
 	public String printLoc() {
@@ -41,6 +41,6 @@ public class SimpleLoc {
 			 ( (Math.abs(myLat) - Math.abs(tar.getLat()) ) * ( Math.abs(myLat) - Math.abs(tar.getLat()) ) ) +
 			 ( (Math.abs(myLon) - Math.abs(tar.getLon()) ) * ( Math.abs(myLon) - Math.abs(tar.getLon()) ) )
 			 );
-		return (float) dist;
+		return dist;
 	}
 }
