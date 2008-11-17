@@ -3,6 +3,11 @@ package rapidrider;
 // Keith Vander Linden, Calvin College
 // Fall 2006
 
+import java.util.Date;
+
+import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.StringItem;
+
 import ext.javax.microedition.location.Location;
 
 // TODO Change the name of this class.
@@ -99,8 +104,8 @@ public class GameBoard extends Form implements Runnable {
 		System.out.println("\nStops:\n   " + route.listStops());
 		// *** Will need to be called on all routes
 		int nearestLoc = 0;
-		float distance = 0;
-		float shortest = -1;
+		double distance = 0;
+		double shortest = -1;
 		for(int i = 0; i < route.routeLength() ; i++ ) {
 			SimpleLoc location = route.getstop(i).getLoc();
 			distance = currentLoc.DistanceTo(location);
