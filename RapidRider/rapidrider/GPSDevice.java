@@ -15,9 +15,9 @@ public class GPSDevice {
 
 	private LocationProvider locationProvider;
 
-	private GameBoard board;
+	private AppController board;
 
-	public GPSDevice(GameBoard _board) {
+	public GPSDevice(AppController _board) {
 		board = _board;
 	}
 

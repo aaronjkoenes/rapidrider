@@ -1,5 +1,7 @@
 package rapidrider;
 
+
+
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
@@ -12,10 +14,10 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 
 	private Command cmdExit, cmdPause, cmdRestart, cmdFindLocation;
 	private GPSDevice device;
-	private GameBoard board;
+	private AppController board;
 
 	public GPSMidlet() {
-		board = new GameBoard();
+		board = new AppController();
 		cmdExit = new Command("Exit", Command.EXIT, 1);
 		cmdPause = new Command("Pause", Command.ITEM, 1);
 		cmdRestart = new Command("Restart", Command.ITEM, 1);
@@ -23,7 +25,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		cmdFindLocation = new Command("Find Nearest", Command.ITEM, 1);
 		board.addCommand(cmdExit);
 		board.addCommand(cmdPause);
-		
+		board.addCommand(cmdFindLocation);
 		board.setCommandListener(this);
 	}
 
@@ -61,9 +63,6 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 			board.start();
 			board.removeCommand(cmdRestart);
 			board.addCommand(cmdPause);
-			
-			// will only be displayed after restart, should be after location
-			// has been acquired and we do have points to compare to
 			board.addCommand(cmdFindLocation);
 			
 		} else if (c == cmdFindLocation) {
