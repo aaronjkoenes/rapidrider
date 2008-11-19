@@ -11,7 +11,7 @@ import javax.microedition.lcdui.StringItem;
 import ext.javax.microedition.location.Location;
 
 // TODO Change the name of this class.
-public class GameBoard extends Form implements Runnable {
+public class AppController extends Form implements Runnable {
 
 	private static final int DELAY = 1000; // in milliseconds
 	private boolean running;
@@ -23,7 +23,7 @@ public class GameBoard extends Form implements Runnable {
 	private Date currentDate;
 	private BusRoute route;
 
-	public GameBoard() {
+	public AppController() {
 		super("Rapid Rider");
 		running = false;
 		status = "";
@@ -101,7 +101,7 @@ public class GameBoard extends Form implements Runnable {
 	
 	
 	public void findNearest() {
-		System.out.println("\nStops:\n   " + route.listStops());
+		System.out.println("\nStops:\n" + route.listStops());
 		// *** Will need to be called on all routes
 		int nearestLoc = 0;
 		double distance = 0;
