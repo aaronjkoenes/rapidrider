@@ -4,22 +4,20 @@ package rapidrider;
 // Fall 2006
 
 import java.util.Date;
-
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
-
 import ext.javax.microedition.location.Location;
 
-// TODO Change the name of this class.
+
 public class AppController extends Form implements Runnable {
 
-	private static final int DELAY = 1000; // in milliseconds
+	private static final int DELAY = 10000; // in milliseconds !!! NOW 10 Sec, defualt is 1 !!!
 	private boolean running;
 	private StringItem locationString, /*courseString, speedString,*/ timeString, statusString, nearestLocation;
 	private Location location;
 	private String status;
 	private SimpleLoc currentLoc;
-	private BusStop vvclose, vclose, close, med, far;
+//	private BusStop vvclose, vclose, close, med, far;
 	private Date currentDate;
 	private BusRoute route;
 
@@ -33,12 +31,12 @@ public class AppController extends Form implements Runnable {
 		timeString = new StringItem("Time: ", "");
 		statusString = new StringItem("Status: ", "");
 		nearestLocation = new StringItem("Nearest Location: ", "");
-		/*
+		/*  !!!!! All this below is for early testing, but does it work???
 		currentLoc = new simpleLoc(42.93693852958363, -85.5993486738205);
 		close = new BusStop(new simpleLoc(42.92693852958363, -85.5893486738205), "close");
 		med = new BusStop(new simpleLoc(42.95748842941581, -85.63509106636047), "medium");
 		far = new BusStop(new simpleLoc(42.963218160220414, -85.66791325807571), "far");
-		*/
+		
 		currentLoc = new SimpleLoc(0, 0);
 		vclose = new BusStop(new SimpleLoc(4, 9), "very close");
 		close = new BusStop(new SimpleLoc(5, 10), "close");
@@ -53,7 +51,9 @@ public class AppController extends Form implements Runnable {
 		route.addStop(vclose);
 		route.addStop(far);
 		route.addStop(vvclose);
-	
+		*/
+		currentLoc = new SimpleLoc(0, 0);  //lets keep CurrentLoc, don't initilize it on the Palm
+		
 		append(locationString);
 //		append(courseString);
 //		append(speedString);
@@ -72,8 +72,8 @@ public class AppController extends Form implements Runnable {
 
 	private void updateDisplay() {
 		if (location != null) {
-//			currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
-//			currentLoc.setLon(location.getQualifiedCoordinates().getLongitude());
+//			currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());	// Disabled for Emulator
+//			currentLoc.setLon(location.getQualifiedCoordinates().getLongitude());	// Disabled for Emulator
 			locationString.setText(currentLoc.printLoc());
 			currentDate = new Date(location.getTimestamp());
 			timeString.setText("(" + currentDate.toString() + ")");
@@ -102,7 +102,7 @@ public class AppController extends Form implements Runnable {
 	
 	public void findNearest() {
 		System.out.println("\nStops:\n" + route.listStops());
-		// *** Will need to be called on all routes
+
 		int nearestLoc = 0;
 		double distance = 0;
 		double shortest = -1;
