@@ -12,7 +12,7 @@ public class SimpleLocTest extends TestCase {
 	}
 
 	public void testDistanceTo() {
-		assertEquals(100.0, myLoc.DistanceTo(new SimpleLoc(131.1, 90.2)), 0.01);
+		assertEquals(100.0, myLoc.distanceTo(new SimpleLoc(131.1, 90.2)), 0.01);
 	}
 
 }
