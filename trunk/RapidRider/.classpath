@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="deployed/|verified/" kind="src" path=""/>
+	<classpathentry exported="true" kind="lib" path="C:/Documents and Settings/ajk24/Desktop/postgresql-8.1-407.jdbc3.jar"/>
 	<classpathentry kind="con" path="J2MELIB"/>
 	<classpathentry exported="true" kind="var" path="TIDALWAVE"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="C:/Documents and Settings/ajk24/Desktop/kxml2-2.3.0.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
