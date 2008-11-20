@@ -26,10 +26,10 @@
     -->
 
    <servlet>
-      <servlet-name>Monopoly</servlet-name>
-      <display-name>Name for Monopoly</display-name>
-      <description><![CDATA[Description for Monopoly]]></description>
-      <servlet-class>MonopolyServlet</servlet-class>
+      <servlet-name>RapidRider</servlet-name>
+      <display-name>Name for RapidRider</display-name>
+      <description><![CDATA[Description for RapidRider]]></description>
+      <servlet-class>RapidRiderServlet</servlet-class>
 
       <init-param>
          <param-name>A parameter</param-name>
@@ -47,8 +47,8 @@
   -->
 
    <servlet-mapping>
-      <servlet-name>Monopoly</servlet-name>
-      <url-pattern>/Monopoly</url-pattern>
+      <servlet-name>RapidRider</servlet-name>
+      <url-pattern>/RapidRider</url-pattern>
    </servlet-mapping>
 
    <!--
