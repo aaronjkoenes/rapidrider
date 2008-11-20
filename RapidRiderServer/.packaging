@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configurations>
 <archive destination="" exploded="false" name="monopolyServlet.war" used="true">
 <file location="bin/MonopolyServlet.class" name="MonopolyServlet.class" prefix="WEB-INF/classes/" project="" projectLocation="bin/MonopolyServlet.class" used="true"/>

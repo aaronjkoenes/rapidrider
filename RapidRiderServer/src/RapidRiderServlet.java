@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @web.servlet-mapping url-pattern="/Monopoly"
  * @web.servlet-init-param name="A parameter" value="A value"
  */
-public class MonopolyServlet extends HttpServlet {
+public class RapidRiderServlet extends HttpServlet {
 
 	Connection conn; // holds database connection
 
