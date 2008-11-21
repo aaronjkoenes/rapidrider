@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry excluding="deployed/|verified/" path="" kind="src"/>
-	<classpathentry path="J2MELIB" kind="con"/>
-	<classpathentry path="TIDALWAVE" exported="true" kind="var"/>
-	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"/>
-	<classpathentry path="KXML_PARSER" exported="true" kind="var"/>
-	<classpathentry path="" kind="output"/>
-</classpath>
