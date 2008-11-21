@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Packaging Generator" default="_packaging_generation_">
+<target name="_packaging_generation_" depends="N65540"/>
+<target name="N65540" description="rapidRiderServlet.war">
+<jar destfile="rapidRiderServlet.war">
+<zipfileset dir="bin" prefix="WEB-INF/classes/">
+<include name="RapidRiderServlet.class"/>
+</zipfileset>
+<zipfileset dir="bin/WEB-INF" prefix="WEB-INF">
+<include name="jboss-web.xml"/>
+</zipfileset>
+<zipfileset dir="bin/WEB-INF" prefix="WEB-INF">
+<include name="web.xml"/>
+</zipfileset>
+</jar>
+</target>
+</project>
