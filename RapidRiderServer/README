@@ -70,7 +70,7 @@ Setup Eclipse with a RapidRider server project:
   11. Build the war file.  In the Properties for the project, make sure that 
      "Enable XDoclet" and "Enable Packaging" are both configured in their 
      respective tabs.  The XDoclet Configuration tab might show an error
-     everytime you click on it, but this doesn't appear to be a real problem.
+     every time you click on it, but this doesn't appear to be a real problem.
      Then, right click on the project and click "Run XDoclet".  Then, right 
      click on the project and click "Run Packaging".  Now you should have a
      rapidRiderServlet.war file.

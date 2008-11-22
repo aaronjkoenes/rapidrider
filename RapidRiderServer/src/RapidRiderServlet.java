@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet Class
  * 
- * @web.servlet name="Monopoly" display-name="Name for Monopoly" description="Description for Monopoly"
- * @web.servlet-mapping url-pattern="/Monopoly"
+ * TODO: More documentation should be added.
+ * 
+ * @web.servlet name="RapidRider" display-name="Name for RapidRider"
+ *              description="Description for RapidRider"
+ * @web.servlet-mapping url-pattern="/RapidRider"
  * @web.servlet-init-param name="A parameter" value="A value"
  */
 public class RapidRiderServlet extends HttpServlet {
@@ -22,46 +25,33 @@ public class RapidRiderServlet extends HttpServlet {
 	Connection conn; // holds database connection
 
 	Statement stmt; // holds SQL statement
-
-	String state_code; // holds state code entered by user
-
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	// TODO: Add documentation?
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
 		out.println("<?xml version=\"1.0\"?>");
 		out.println("<rapidrider>");
 		try {
 			Class.forName("org.postgresql.Driver");
 
-			conn = DriverManager.getConnection("jdbc:postgresql:rapidrider", "postgres", "bjarne");
+			conn = DriverManager.getConnection("jdbc:postgresql:rapidrider",
+					"postgres", "bjarne");
 			stmt = conn.createStatement();
-			ResultSet res = stmt.executeQuery("SELECT stopid, stop_name, latitude, longitude FROM busstops");
+			ResultSet res = stmt
+					.executeQuery("SELECT stopid, stop_name, latitude, longitude FROM busstops");
 
 			if (res != null)
 				while (res.next()) {
 					String stopID = res.getString(1);
-					String stopName = res.getString(2), RStopName = "";		// Original stop name and Revised
+					String stopName = res.getString(2);
 					String latitude = res.getString(3);
 					String longitude = res.getString(4);
-					
-					/*
-					 * This portion of the code exists to protect the XML. 
-					 * If an ampersand (&) is encountered, it breaks the XML document.
-					 * This searches for ampersands and replaces them with the 
-					 * unicode equivilent (&amp;)
-					 */
-								
-					for( int i = 0; i < stopName.length(); i++ ) {
-						char c = stopName.charAt(i);
-						if( c == '&') {
-							RStopName += "&amp;";
-						} else {
-							RStopName += c;
-						}
-					}
-					
+					String revisedStopName = replaceEscapeCharacters(stopName);
+
 					out.println("<busstop>");
 					out.println("<stopID>" + stopID + "</stopID>");
-					out.println("<stopName>" + RStopName + "</stopName>");
+					out.println("<stopName>" + revisedStopName + "</stopName>");
 					out.println("<latitude>" + longitude + "</latitude>");
 					out.println("<longitude>" + latitude + "</longitude>");
 					out.println("</busstop>");
@@ -71,9 +61,31 @@ public class RapidRiderServlet extends HttpServlet {
 			conn.close();
 
 		} catch (Exception e) {
-			out.println("error in JDBC access: " + e.getClass() + " : " + e.getMessage());
+			out.println("error in JDBC access: " + e.getClass() + " : "
+					+ e.getMessage());
 		}
 		out.println("</rapidrider>");
+	}
+
+	/*
+	 * This portion of the code protects the XML. Ampersands (&) break XML
+	 * documents. This searches for ampersands and replaces them with the HTML
+	 * equivalent (&amp;)
+	 */
+	private String replaceEscapeCharacters(String stopName) {
+		String revisedStopName = "";
+		// TODO: Should we use a character array instead of repeatedly adding to
+		// immutable string objects?
+		for (int i = 0; i < stopName.length(); i++) {
+			char c = stopName.charAt(i);
+			// TODO: Should other characters be escaped also?
+			if (c == '&') {
+				revisedStopName += "&amp;";
+			} else {
+				revisedStopName += c;
+			}
+		}
+		return revisedStopName;
 	}
 
 }
