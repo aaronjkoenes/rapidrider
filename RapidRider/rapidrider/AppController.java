@@ -1,30 +1,32 @@
 package rapidrider;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
+
+import javax.microedition.io.Connector;
+import javax.microedition.io.StreamConnection;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
+import javax.microedition.lcdui.TextField;
+
 import ext.javax.microedition.location.Location;
 
 public class AppController extends Form implements Runnable {
 
 	// in milliseconds !!! NOW 10 Sec, default is 1 !!!
-	private static final int DELAY = 10000;
-
+	private static final int DELAY = 1000;  // 1 sec.
 	private boolean running;
+	private StringItem locationString, timeString, statusString, nearestLocation;
 
-	private StringItem locationString, /* courseString, speedString, */
-	timeString, statusString, nearestLocation;
-
+	private TextField destinationAddress;
+									/* courseString, speedString, */
 	private Location location;
-
 	private String status;
-
 	private SimpleLoc currentLoc;
-
 	// private BusStop vvclose, vclose, close, med, far;
-
 	private Date currentDate;
-
 	private BusRoute route;
 
 	public AppController() {
@@ -32,6 +34,7 @@ public class AppController extends Form implements Runnable {
 		running = false;
 		status = "";
 		locationString = new StringItem("Location: ", "");
+		destinationAddress = new TextField("Destination: ", "", 50, TextField.ANY);
 		// courseString = new StringItem("Course: ", "");
 		// speedString = new StringItem("Speed: ", "");
 		timeString = new StringItem("Time: ", "");
@@ -62,8 +65,8 @@ public class AppController extends Form implements Runnable {
 
 		// This is added to get rid of a null pointer exception.
 		// Why does the controller store a single route like this?
-		route = new BusRoute("some route");
-		route.addStop(new BusStop(new SimpleLoc(25, 50), "a stop"));
+		route = new BusRoute("Testing Route");
+		//route.addStop(new BusStop(new SimpleLoc(25, 50), "a stop"));
 
 		// lets keep CurrentLoc, don't initialize it on the Palm
 		currentLoc = new SimpleLoc(0, 0);
@@ -74,8 +77,13 @@ public class AppController extends Form implements Runnable {
 		append(timeString);
 		append(statusString);
 		append(nearestLocation);
+		append(destinationAddress);
 	}
 
+	public BusRoute getRoute () {
+		return route;
+	}
+	
 	public synchronized void setStatus(String s) {
 		status = s;
 	}
@@ -118,21 +126,106 @@ public class AppController extends Form implements Runnable {
 	public void stop() {
 		running = false;
 	}
+	
+	//*
+	public void getDestinationStop() throws IOException {
+		InputStream is = null;
+		OutputStream os = null;
+		String dest = "http://tinygeocoder.com/create-api.php?q=" + 
+			destinationAddress.getString() + " Grand Rapids, MI";
+		StreamConnection c = null;
+		InputStream s = null;
+		
+		try {
+			c = (StreamConnection) Connector.open(dest);
+			s = c.openInputStream();
+			int ch;
+			while((ch = s.read()) != -1 ) {
+				System.out.println(ch);
+			}
+		} finally {
+			if (s != null)
+				s.close();
+			if (c != null) 
+				c.close();
+		}
+	}
+		
+		/*
+			try {
+				String site = "http://tinygeocoder.com/create-api.php?q=" + destinationAddress + " Grand Rapids, MI";
+				HttpConnection connection = (HttpConnection) Connector.open(site);
+				connection.setRequestMethod("GET");
+				///connection.setRequestProperty("User-Agent", "Profile/MIDP-2.0 Configuration/CLDC-1.0");
+				//connection.setRequestProperty("Content-Language", "en-US");
+				//os = connection.openOutputStream();
+				
+				rc = connection.getResponseCode();
+				/*if( rc != HttpConnection.HTTP_OK) {
+					throw new IOException("HTTP failed.  Response code " + rc);
+				}
+				
+				is = connection.openInputStream();
+				String type = connection.getType();
+				//processType(type);
+				int len = (int) connection.getLength();
+				if( len > 0 ) {
+					int actual = 0;
+					int read = 0;
+					byte[] data = new byte[len];
+					while ((read != len) && (actual != -1)) {
+						actual = is.read(data, read, len - read);
+						read += actual;
+					}
+				} else {
+					int ch;
+					while ((ch = is.read()) != -1 ) {
+						// ...
+					}
+				}
+	
+				/*BufferedReader reader = new BufferedReader( new InputStreamReader(connection.getInputStream()));
+				String line = null;
+				while((line = reader.readLine()) != null ) {
+					System.out.println(line);
+				}
+				KXmlParser parser = new KXmlParser();
+				parser.setInput(new InputStreamReader(connection.openInputStream()));
+				parser.nextTag();
+				parser.require(XmlPullParser.START_TAG, null, "rapidrider");
+				while (parser.nextTag() != XmlPullParser.END_TAG)
+					readXMLData(parser);
+				parser.require(XmlPullParser.END_TAG, null, "rapidrider");
+				parser.next();
+				parser.require(XmlPullParser.END_DOCUMENT, null, null);
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				//resultItem.setLabel("Error:");
+				//resultItem.setText(e.toString());
+			}
+//		}*/
+	
 
+	
 	public void findNearest() {
-		System.out.println("\nStops:\n" + route.listStops());
+		
+		//System.out.println("\nStops:\n" + route.listStops());
 		int nearestLoc = 0;
 		double distance = 0;
 		double shortest = -1;
-		for (int i = 0; i < route.routeLength(); i++) {
+		for (int i = 0; i < route.routeLength(); i+=4) {
 			SimpleLoc location = route.getstop(i).getLoc();
 			distance = currentLoc.distanceTo(location);
+			System.out.println("Distance to " + route.getstop(i).getName() + ": " + distance);
 			if (shortest > distance || shortest < 0) {
 				shortest = distance;
 				nearestLoc = i;
 			}
 		}
 		nearestLocation.setText(route.getstop(nearestLoc).getName());
+		//System.out.println("****************");
 	}
 
 	public void run() {
