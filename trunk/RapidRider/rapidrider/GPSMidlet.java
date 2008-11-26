@@ -2,7 +2,7 @@ package rapidrider;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Vector;
+//import java.util.Vector;
 
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
@@ -20,21 +20,15 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class GPSMidlet extends MIDlet implements CommandListener {
 
-	private Command cmdExit, cmdPause, /* cmdXMLRead, */cmdRestart,
-			cmdFindNearest;
-
+	private Command cmdExit, cmdPause, cmdRestart, cmdFindNearest, cmdGetDestinationStop;  /* cmdXMLRead, */
 	private GPSDevice device;
-
 	private AppController screen;
 
 	// private static final String URL =
 	// "http://153.106.117.64:8080/monopolyServlet/Monopoly";
 	private static final String URL = "http://localhost:8080/rapidRiderServlet/RapidRider";
-
-	private Vector busStopVector = new Vector();
-
+	//private Vector busStopVector = new Vector();
 	private StringItem resultItem;
-
 	private Command cmdXMLRead;
 
 	public GPSMidlet() {
@@ -45,6 +39,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		cmdXMLRead = new Command("Get XML Data", Command.OK, 1);
 		device = new GPSDevice(screen);
 		cmdFindNearest = new Command("Find Nearest", Command.ITEM, 1);
+		cmdGetDestinationStop = new Command("Get Dest. Stop", Command.ITEM, 1);
 		resultItem = new StringItem("", "");
 		
 		// TODO: This does not look well thought-through.
@@ -54,6 +49,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		screen.addCommand(cmdPause);
 		screen.addCommand(cmdFindNearest);
 		screen.addCommand(cmdXMLRead);
+		screen.addCommand(cmdGetDestinationStop);
 		screen.setCommandListener(this);
 	}
 
@@ -61,11 +57,9 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	class ReadXML extends Thread {
 		public void run() {
 			try {
-				HttpConnection connection = (HttpConnection) Connector
-						.open(URL);
+				HttpConnection connection = (HttpConnection) Connector.open(URL);
 				KXmlParser parser = new KXmlParser();
-				parser.setInput(new InputStreamReader(connection
-						.openInputStream()));
+				parser.setInput(new InputStreamReader(connection.openInputStream()));
 				parser.nextTag();
 				parser.require(XmlPullParser.START_TAG, null, "rapidrider");
 				while (parser.nextTag() != XmlPullParser.END_TAG)
@@ -83,6 +77,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 
 	private void readXMLData(KXmlParser parser) throws IOException,
 			XmlPullParserException {
+		
 		parser.require(XmlPullParser.START_TAG, null, "busstop");
 		BusStop busStop = new BusStop();
 		while (parser.nextTag() != XmlPullParser.END_TAG) {
@@ -99,8 +94,13 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 				busStop.setLongitude(text);
 
 			parser.require(XmlPullParser.END_TAG, null, name);
+			/*
+			 * TODO: This currently parses ALL bus stops, and stores them on the palm.
+			 * Probably not what we want to do.
+			 */
+			screen.getRoute().addStop(busStop);
 		}
-		busStopVector.addElement(busStop);
+		//busStopVector.addElement(busStop);
 		parser.require(XmlPullParser.END_TAG, null, "busstop");
 	}
 
@@ -116,6 +116,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		screen.removeCommand(cmdPause);
 		screen.removeCommand(cmdFindNearest);
 		screen.removeCommand(cmdXMLRead);
+		screen.removeCommand(cmdGetDestinationStop);
 		screen.addCommand(cmdRestart);
 	}
 	
@@ -129,6 +130,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		screen.addCommand(cmdPause);
 		screen.addCommand(cmdFindNearest);
 		screen.addCommand(cmdXMLRead);
+		screen.addCommand(cmdGetDestinationStop);
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
@@ -137,10 +139,19 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		screen = null;
 		System.gc();
 	}
+	
+/*	public void setStops () {
+		BusStop stop = new BusStop();
+		new ReadXML().start();
+		for (int i = 0; i < busStopVector.size(); i++) {
+			stop = (BusStop) busStopVector.elementAt(i);
+		}
+		screen.getRoute().addStop(stop);
+	}*/
 
 	public void commandAction(Command c, Displayable d) {
 		StringBuffer sb = new StringBuffer();
-		BusStop stop;
+		//BusStop stop;
 		if (c == cmdExit) {
 			try {
 				destroyApp(false); // Do MIDLet resource cleanup (see above).
@@ -150,17 +161,29 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 			}
 		} else if (c == cmdPause) {
 			pauseApp();
+		} else if (c == cmdGetDestinationStop) {
+			try {
+				screen.getDestinationStop();
+			} catch (IOException e) {
+				
+			}
 		} else if (c == cmdXMLRead) {
+			screen.getRoute().removeAllStops();
+			new ReadXML().start();
 			
 			// TODO: Here we start a thread that grabs the data.  Then we
 			// assume that the data is ready and move on.  This is bad.
-			new ReadXML().start();
-			for (int i = 0; i < busStopVector.size(); i++) {
+
+	/*		for (int i = 0; i < busStopVector.size(); i++) {
 				stop = (BusStop) busStopVector.elementAt(i);
+				
 				sb.append("Stop " + stop.getId() + "\n" + stop.getName() + "\n"
 						+ stop.getLatitude() + " " + stop.getLongitude() + "\n"
 						+ "------\n");
 			}
+	*/
+			
+			sb.append("Stops Received");
 			resultItem.setLabel("Stops:\n");
 			resultItem.setText(sb.toString());
 		} else if (c == cmdRestart) {
