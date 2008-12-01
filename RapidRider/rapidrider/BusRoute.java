@@ -34,8 +34,6 @@ public class BusRoute {
 			for (int i = 0; i < myStops.size(); i++) {
 				temp += ((BusStop) myStops.elementAt(i)).getName() + "\n";
 			}
-		} else {
-			temp = "";
 		}
 		return temp;
 	}
