@@ -6,7 +6,6 @@ public class BusStop {
 	private String id;
 	private String myName;
 
-	// private long[] stopTimes;
 	public BusStop() {
 		myLoc = new SimpleLoc();
 	}
@@ -14,7 +13,6 @@ public class BusStop {
 	public BusStop(SimpleLoc loc, String name) {
 		myLoc = loc;
 		myName = name;
-		// stopTimes = new long[10];
 	}
 
 	public SimpleLoc getLoc() {
@@ -52,8 +50,4 @@ public class BusStop {
 		return String.valueOf(myLoc.getLon());
 	}
 	
-
-
-
-
 }
