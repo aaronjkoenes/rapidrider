@@ -25,7 +25,6 @@ public class AppController extends Form implements Runnable {
 	private Location location;
 	private String status;
 	private SimpleLoc currentLoc;
-	// private BusStop vvclose, vclose, close, med, far;
 	private Date currentDate;
 	private BusRoute route;
 

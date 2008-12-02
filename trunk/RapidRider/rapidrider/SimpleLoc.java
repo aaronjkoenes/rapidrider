@@ -36,6 +36,7 @@ public class SimpleLoc {
 		return String.valueOf(myLat) + ", " + String.valueOf(myLon);
 	}
 
+	// This function doesn't look correct to me.  TODO test.
 	public double distanceTo(SimpleLoc tar) {
 		double dist = Math.sqrt( 
 			 ( (Math.abs(myLat) - Math.abs(tar.getLat()) ) * ( Math.abs(myLat) - Math.abs(tar.getLat()) ) ) +
