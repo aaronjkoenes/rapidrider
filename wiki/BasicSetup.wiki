@@ -2,4 +2,7 @@
 
 == Client-side ==
 The software on the Palm Pilot provides a user-interface, a GPS connection, and a server connection. It has a field for the user to enter a destination address and a button to quit the application and a button to request a route.
-When an address
+When an address is entered and "Get Route" is pressed by the user, the application gets the current latitude and longitude from the GPS device and send the address and send the address and latitude and longitude to the server. It then receives a route and displays it.
+
+== Server-side ==
+The server receives an address and GPS location from the Palm Pilot. The server then uses [http://tinygeocoder.com Tiny Geo-coder API] to get the latitude and longitude of the given address. It then calculates the closest bus station to the current location and the destination. The server then executes a query to find the route with the least transfers between the two.
