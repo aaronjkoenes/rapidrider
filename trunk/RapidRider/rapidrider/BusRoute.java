@@ -1,5 +1,5 @@
 /*
- * Authors: Aaron Koenes, Arie den Breems
+ * Authors: Aaron Koenes,Arie den Breems
  * Calvin College 08-09
  */
 

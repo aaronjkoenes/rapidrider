@@ -2,7 +2,6 @@ package rapidrider;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-//import java.util.Vector;
 
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
@@ -26,7 +25,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 
 	// private static final String URL =
 	// "http://153.106.117.64:8080/monopolyServlet/Monopoly";
-	private static final String URL = "http://localhost:8080/rapidRiderServlet/RapidRider";
+	private static final String URL = "http://localhost:8080/rapidRiderServlet/RapidRider&Request=";
 	//private Vector busStopVector = new Vector();
 	private StringItem resultItem;
 	private Command cmdXMLRead;
@@ -57,6 +56,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	class ReadXML extends Thread {
 		public void run() {
 			try {
+				//URL += "rt1"
 				HttpConnection connection = (HttpConnection) Connector.open(URL);
 				KXmlParser parser = new KXmlParser();
 				parser.setInput(new InputStreamReader(connection.openInputStream()));
@@ -163,9 +163,11 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 			pauseApp();
 		} else if (c == cmdGetDestinationStop) {
 			try {
+
 				screen.getDestinationStop();
+
 			} catch (IOException e) {
-				
+				System.out.println("CAUGHT EXCEPTION");
 			}
 		} else if (c == cmdXMLRead) {
 			screen.getRoute().removeAllStops();
