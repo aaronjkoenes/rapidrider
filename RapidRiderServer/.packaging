@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <configurations>
 <archive destination="" exploded="false" name="rapidRiderServlet.war" used="true">
 <file location="bin/RapidRiderServlet.class" name="RapidRiderServlet.class" prefix="WEB-INF/classes/" project="" projectLocation="bin/RapidRiderServlet.class" used="true"/>
