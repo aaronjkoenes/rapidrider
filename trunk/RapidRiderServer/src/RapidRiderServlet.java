@@ -30,8 +30,17 @@ public class RapidRiderServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
+		if (req.getQueryString() != null) {				// HERE IS WHERE WE DECIED IF WE ARE GOING OLD / NEW SCHOOL
+			String queryString = req.getQueryString();	// new school requests include a Query String ...vlet/RapidRider?Field=Value
+			//if (queryString.substring(0, 4) == "Curr")// We need to decied what method to invoce based on the 
+				out.println(/*"Congradulations, you are:"+*/queryString/*(.substring(11)*/);
+		} else {										//old school simply omits the query stirng
+		//String reqTypes = req.getHeaderNames().toString();
+		//String reqType = req.getHeader("reqType");
 		out.println("<?xml version=\"1.0\"?>");
 		out.println("<rapidrider>");
+		//out.println(reqTypes);
+		//out.println(reqType);
 		try {
 			Class.forName("org.postgresql.Driver");
 
@@ -47,6 +56,7 @@ public class RapidRiderServlet extends HttpServlet {
 					String stopName = res.getString(2);
 					String latitude = res.getString(3);
 					String longitude = res.getString(4);
+					
 					String revisedStopName = replaceEscapeCharacters(stopName);
 
 					out.println("<busstop>");
@@ -64,9 +74,26 @@ public class RapidRiderServlet extends HttpServlet {
 			out.println("error in JDBC access: " + e.getClass() + " : "
 					+ e.getMessage());
 		}
-		out.println("</rapidrider>");
-	}
-
+		out.println("</rapidrider>"); }
+	}/*
+	public void getDestinationStop(stdestString) {
+		try {
+			URL site = new URL("http://tinygeocoder.com/create-api.php?q=");
+			HttpURLConnection connection = (HttpURLConnection) site.openConnection(); //Connector.open(site + destinationAddress);
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; JVM) ");
+			connection.setRequestProperty("Pragma", "no-cache");
+			connection.connect();
+			
+			BufferedReader reader = new BufferedReader( new InputStreamReader(connection.getInputStream()));
+			String line = null;
+			while((line = reader.readLine()) != null ) {
+				System.out.println(line);
+			}
+*/
+	
+	
+	
 	/*
 	 * This portion of the code protects the XML. Ampersands (&) break XML
 	 * documents. This searches for ampersands and replaces them with the HTML
