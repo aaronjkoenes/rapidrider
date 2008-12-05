@@ -1,5 +1,8 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -23,24 +26,31 @@ import javax.servlet.http.HttpServletResponse;
 public class RapidRiderServlet extends HttpServlet {
 
 	Connection conn; // holds database connection
-
+	static final long serialVersionUID = 1;
 	Statement stmt; // holds SQL statement
+
+	String targetLat = "", targetLon = "";
+	URL target;
 	
 	// TODO: Add documentation?
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
 		PrintWriter out = resp.getWriter();
-		if (req.getQueryString() != null) {				// HERE IS WHERE WE DECIED IF WE ARE GOING OLD / NEW SCHOOL
-			String queryString = req.getQueryString();	// new school requests include a Query String ...vlet/RapidRider?Field=Value
-			//if (queryString.substring(0, 4) == "Curr")// We need to decied what method to invoce based on the 
-				out.println(/*"Congradulations, you are:"+*/queryString/*(.substring(11)*/);
-		} else {										//old school simply omits the query stirng
-		//String reqTypes = req.getHeaderNames().toString();
-		//String reqType = req.getHeader("reqType");
-		out.println("<?xml version=\"1.0\"?>");
-		out.println("<rapidrider>");
-		//out.println(reqTypes);
-		//out.println(reqType);
+		if (req.getQueryString() != null) {		
+			String destinationAddress = req.getParameter("address");  //req.getParameter("address");
+			System.out.println(req.getQueryString());
+			getDestinationStop(destinationAddress);
+			out.println("<?xml version=\"1.0\"?>");
+			out.println("<rapidrider>");
+			out.println("<destLoc>");
+			out.println("<latitude>" + targetLat + "</latitude>");
+			out.println("<longitude>" + targetLon + "</longitude>");
+			out.println("</destLoc>");
+			out.println("</rapidrider>");
+		} else {										
+			out.println("<?xml version=\"1.0\"?>");
+			out.println("<rapidrider>");
 		try {
 			Class.forName("org.postgresql.Driver");
 
@@ -75,7 +85,8 @@ public class RapidRiderServlet extends HttpServlet {
 					+ e.getMessage());
 		}
 		out.println("</rapidrider>"); }
-	}/*
+	}
+	/*
 	public void getDestinationStop(stdestString) {
 		try {
 			URL site = new URL("http://tinygeocoder.com/create-api.php?q=");
@@ -99,6 +110,39 @@ public class RapidRiderServlet extends HttpServlet {
 	 * documents. This searches for ampersands and replaces them with the HTML
 	 * equivalent (&amp;)
 	 */
+	
+	public void getDestinationStop(String s) throws IOException {
+		String URLx = replaceSpaces("http://tinygeocoder.com/create-api.php?q=" + s + "%20Grand%20Rapids,%20MI");
+		System.out.println(URLx);
+		target = new URL(URLx);
+//		HttpURLConnection connection = (HttpURLConnection) target.openConnection();
+		InputStreamReader x = new InputStreamReader(target.openStream());
+		BufferedReader in = new BufferedReader(x);
+		String result = in.readLine();
+		in.close();
+		x.close();
+		parse(result);
+		System.out.println("Target Lat:  " + targetLat + "\nTarget Long: " + targetLon);
+	}
+	
+	public String replaceSpaces (String s) {
+		String Result = "";
+		for( int i = 0; i < s.length(); i++ ) {
+			if( s.charAt(i) == ' ' ) {
+				Result += "%20";
+			} else {
+				Result += s.charAt(i);
+			}
+		}
+		return Result;
+	}
+
+	public void parse(String s ) {
+		String[] s2 = s.split(",");
+		targetLat = s2[0];
+		targetLon = s2[1];
+	}	
+	
 	private String replaceEscapeCharacters(String stopName) {
 		String revisedStopName = "";
 		// TODO: Should we use a character array instead of repeatedly adding to
