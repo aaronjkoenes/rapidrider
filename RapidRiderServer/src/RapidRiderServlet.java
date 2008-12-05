@@ -37,54 +37,53 @@ public class RapidRiderServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		PrintWriter out = resp.getWriter();
+		out.println("<?xml version=\"1.0\"?>");
+		out.println("<rapidrider>");
 		if (req.getQueryString() != null) {		
 			String destinationAddress = req.getParameter("address");  //req.getParameter("address");
 			System.out.println(req.getQueryString());
 			getDestinationStop(destinationAddress);
-			out.println("<?xml version=\"1.0\"?>");
-			out.println("<rapidrider>");
+
 			out.println("<destLoc>");
 			out.println("<latitude>" + targetLat + "</latitude>");
 			out.println("<longitude>" + targetLon + "</longitude>");
 			out.println("</destLoc>");
-			out.println("</rapidrider>");
 		} else {										
-			out.println("<?xml version=\"1.0\"?>");
-			out.println("<rapidrider>");
-		try {
-			Class.forName("org.postgresql.Driver");
-
-			conn = DriverManager.getConnection("jdbc:postgresql:rapidrider",
-					"postgres", "bjarne");
-			stmt = conn.createStatement();
-			ResultSet res = stmt
-					.executeQuery("SELECT stopid, stop_name, latitude, longitude FROM busstops");
-
-			if (res != null)
-				while (res.next()) {
-					String stopID = res.getString(1);
-					String stopName = res.getString(2);
-					String latitude = res.getString(3);
-					String longitude = res.getString(4);
-					
-					String revisedStopName = replaceEscapeCharacters(stopName);
-
-					out.println("<busstop>");
-					out.println("<stopID>" + stopID + "</stopID>");
-					out.println("<stopName>" + revisedStopName + "</stopName>");
-					out.println("<latitude>" + longitude + "</latitude>");
-					out.println("<longitude>" + latitude + "</longitude>");
-					out.println("</busstop>");
-				}
-			res.close();
-			stmt.close();
-			conn.close();
-
-		} catch (Exception e) {
-			out.println("error in JDBC access: " + e.getClass() + " : "
-					+ e.getMessage());
+			try {
+				Class.forName("org.postgresql.Driver");
+	
+				conn = DriverManager.getConnection("jdbc:postgresql:rapidrider",
+						"postgres", "bjarne");
+				stmt = conn.createStatement();
+				ResultSet res = stmt
+						.executeQuery("SELECT stopid, stop_name, latitude, longitude FROM busstops");
+	
+				if (res != null)
+					while (res.next()) {
+						String stopID = res.getString(1);
+						String stopName = res.getString(2);
+						String latitude = res.getString(3);
+						String longitude = res.getString(4);
+						
+						String revisedStopName = replaceEscapeCharacters(stopName);
+	
+						out.println("<busstop>");
+						out.println("<stopID>" + stopID + "</stopID>");
+						out.println("<stopName>" + revisedStopName + "</stopName>");
+						out.println("<latitude>" + longitude + "</latitude>");
+						out.println("<longitude>" + latitude + "</longitude>");
+						out.println("</busstop>");
+					}
+				res.close();
+				stmt.close();
+				conn.close();
+	
+			} catch (Exception e) {
+				out.println("error in JDBC access: " + e.getClass() + " : "
+						+ e.getMessage());
+			}
 		}
-		out.println("</rapidrider>"); }
+		out.println("</rapidrider>");
 	}
 	/*
 	public void getDestinationStop(stdestString) {
@@ -112,10 +111,9 @@ public class RapidRiderServlet extends HttpServlet {
 	 */
 	
 	public void getDestinationStop(String s) throws IOException {
-		String URLx = replaceSpaces("http://tinygeocoder.com/create-api.php?q=" + s + "%20Grand%20Rapids,%20MI");
+		String URLx = "http://tinygeocoder.com/create-api.php?q=" + replaceSpaces(s) ;
 		System.out.println(URLx);
 		target = new URL(URLx);
-//		HttpURLConnection connection = (HttpURLConnection) target.openConnection();
 		InputStreamReader x = new InputStreamReader(target.openStream());
 		BufferedReader in = new BufferedReader(x);
 		String result = in.readLine();
@@ -124,6 +122,13 @@ public class RapidRiderServlet extends HttpServlet {
 		parse(result);
 		System.out.println("Target Lat:  " + targetLat + "\nTarget Long: " + targetLon);
 	}
+
+
+	public void parse(String s ) {
+		String[] s2 = s.split(",");
+		targetLat = s2[0];
+		targetLon = s2[1];
+	}	
 	
 	public String replaceSpaces (String s) {
 		String Result = "";
@@ -137,12 +142,6 @@ public class RapidRiderServlet extends HttpServlet {
 		return Result;
 	}
 
-	public void parse(String s ) {
-		String[] s2 = s.split(",");
-		targetLat = s2[0];
-		targetLon = s2[1];
-	}	
-	
 	private String replaceEscapeCharacters(String stopName) {
 		String revisedStopName = "";
 		// TODO: Should we use a character array instead of repeatedly adding to
