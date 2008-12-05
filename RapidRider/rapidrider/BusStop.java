@@ -42,6 +42,7 @@ public class BusStop {
 	public String getLatitude() {
 		return String.valueOf(myLoc.getLat());
 	}
+	
 	public void setLongitude(String _longitude) {
 		myLoc.setLon(Double.parseDouble(_longitude));
 	}
@@ -50,4 +51,7 @@ public class BusStop {
 		return String.valueOf(myLoc.getLon());
 	}
 	
+	public String toString() {
+		return myName + " " + id + myLoc.toString();
+	}
 }

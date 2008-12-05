@@ -25,10 +25,14 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 
 	// private static final String URL =
 	// "http://153.106.117.64:8080/monopolyServlet/Monopoly";
-	private static final String URL = "http://localhost:8080/rapidRiderServlet/RapidRider&Request=";
+	private String location = "";
+	private static final String URL = "http://localhost:8080/rapidRiderServlet/RapidRider";
 	//private Vector busStopVector = new Vector();
 	private StringItem resultItem;
 	private Command cmdXMLRead;
+	private BusStop tempStop;
+	private String tempId = null, tempName = null, tempLat = null, tempLon = null;
+	
 
 	public GPSMidlet() {
 		screen = new AppController();
@@ -50,6 +54,12 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		screen.addCommand(cmdXMLRead);
 		screen.addCommand(cmdGetDestinationStop);
 		screen.setCommandListener(this);
+		
+//		screen.getRoute().addStop(new BusStop(new SimpleLoc(1,1), "test 1"));
+//		screen.getRoute().addStop(new BusStop(new SimpleLoc(-2,2), "test 2"));
+//		screen.getRoute().addStop(new BusStop(new SimpleLoc(3,3), "test 3"));
+
+		
 	}
 
 	// TODO: Consider defining all classes in their own file.
@@ -57,7 +67,8 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		public void run() {
 			try {
 				//URL += "rt1"
-				HttpConnection connection = (HttpConnection) Connector.open(URL);
+				HttpConnection connection = 
+					(HttpConnection) Connector.open(URL + "?address=" + screen.getDestinationAddress());
 				KXmlParser parser = new KXmlParser();
 				parser.setInput(new InputStreamReader(connection.openInputStream()));
 				parser.nextTag();
@@ -74,31 +85,47 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 			}
 		}
 	}
+	void SendCurrentLoc(SimpleLoc currentLoc) throws IOException {
+//		String searchQuery = "?CurrentLoc=" + currentLoc.toString();			//Backup method.
+//		HttpConnection connection = (HttpConnection) Connector.open(URL+searchQuery);
+		//connection.setRequestProperty("currentLoc", currentLoc.toString());
+		}
 
 	private void readXMLData(KXmlParser parser) throws IOException,
 			XmlPullParserException {
-		
 		parser.require(XmlPullParser.START_TAG, null, "busstop");
-		BusStop busStop = new BusStop();
+		tempStop = new BusStop();
 		while (parser.nextTag() != XmlPullParser.END_TAG) {
 			parser.require(XmlPullParser.START_TAG, null, null);
 			String name = parser.getName();
 			String text = parser.nextText();
-			if (name.equals("stopID"))
-				busStop.setId(text);
+			if (name.equals("stopID")) 
+				tempId = text.trim();
+				//tempStop.setId(text);
 			else if (name.equals("stopName"))
-				busStop.setName(text);
+				tempName = text.trim();
+				//tempStop.setName(text);
 			else if (name.equals("latitude"))
-				busStop.setLatitude(text);
+				tempLat = text.trim();
+				//tempStop.setLatitude(text);
 			else if (name.equals("longitude"))
-				busStop.setLongitude(text);
+				tempLon = text.trim();
+				//tempStop.setLongitude(text);
+
 
 			parser.require(XmlPullParser.END_TAG, null, name);
-			/*
-			 * TODO: This currently parses ALL bus stops, and stores them on the palm.
-			 * Probably not what we want to do.
-			 */
-			screen.getRoute().addStop(busStop);
+
+			if( tempId != null && tempName != null && tempLat != null && tempLon != null) {
+				tempStop.setId(tempId);
+				tempStop.setName(tempName);
+				tempStop.setLatitude(tempLat);
+				tempStop.setLongitude(tempLon);
+				screen.getRoute().addStop(tempStop);
+				tempId = tempName = tempLat = tempLon = null;
+			}
+
+			
+
 		}
 		//busStopVector.addElement(busStop);
 		parser.require(XmlPullParser.END_TAG, null, "busstop");
@@ -161,30 +188,17 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 			}
 		} else if (c == cmdPause) {
 			pauseApp();
-		} else if (c == cmdGetDestinationStop) {
-			try {
-
-				screen.getDestinationStop();
-
-			} catch (IOException e) {
-				System.out.println("CAUGHT EXCEPTION");
-			}
+														/*		} else if (c == cmdGetDestinationStop) {
+																	try {
+														
+																		screen.getDestinationStop();
+														
+																	} catch (IOException e) {
+																		System.out.println("CAUGHT EXCEPTION");
+																	}*/
 		} else if (c == cmdXMLRead) {
 			screen.getRoute().removeAllStops();
 			new ReadXML().start();
-			
-			// TODO: Here we start a thread that grabs the data.  Then we
-			// assume that the data is ready and move on.  This is bad.
-
-	/*		for (int i = 0; i < busStopVector.size(); i++) {
-				stop = (BusStop) busStopVector.elementAt(i);
-				
-				sb.append("Stop " + stop.getId() + "\n" + stop.getName() + "\n"
-						+ stop.getLatitude() + " " + stop.getLongitude() + "\n"
-						+ "------\n");
-			}
-	*/
-			
 			sb.append("Stops Received");
 			resultItem.setLabel("Stops:\n");
 			resultItem.setText(sb.toString());

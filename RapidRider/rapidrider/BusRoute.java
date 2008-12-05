@@ -30,11 +30,17 @@ public class BusRoute {
 		// Test this while fixing it.
 		
 		// Fix made:  Added IF statement to check vector size.  This should work, yes?
+		System.out.print("1");
 		if( myStops.size() > 0 ) {
+			System.out.print("2");
 			for (int i = 0; i < myStops.size(); i++) {
-				temp += ((BusStop) myStops.elementAt(i)).getName() + "\n";
+				System.out.print(".");
+				temp += ((BusStop) getstop(i)).getName() + "\n";
 			}
+		} else {
+			temp = "No stops found";
 		}
+		System.out.print("|");
 		return temp;
 	}
 
