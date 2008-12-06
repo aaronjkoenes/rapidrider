@@ -70,8 +70,8 @@ public class RapidRiderServlet extends HttpServlet {
 						out.println("<busstop>");
 						out.println("<stopID>" + stopID + "</stopID>");
 						out.println("<stopName>" + revisedStopName + "</stopName>");
-						out.println("<latitude>" + longitude + "</latitude>");
-						out.println("<longitude>" + latitude + "</longitude>");
+						out.println("<latitude>" + latitude + "</latitude>");
+						out.println("<longitude>" + longitude + "</longitude>");
 						out.println("</busstop>");
 					}
 				res.close();
