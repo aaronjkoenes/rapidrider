@@ -26,7 +26,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	// private static final String URL =
 	// "http://153.106.117.64:8080/monopolyServlet/Monopoly";
 	private String location = "";
-	private static String URL = "http://localhost:8080/rapidRiderServlet/RapidRider";
+	private static String URL = "http://153.106.117.64:8080/rapidRiderServlet/RapidRider";
 	//private Vector busStopVector = new Vector();
 	private StringItem resultItem;
 	private Command cmdXMLRead;
