@@ -20,27 +20,19 @@ public class BusRoute {
 	}
 
 	public int routeLength() {
+		System.out.println("RouteLength size: " + myStops.size());
 		return myStops.size();
 	}
 
 	public String listStops() {
 		String temp = "";
-		
-		// FIXME: This fails when myStops is an empty vector.
-		// Test this while fixing it.
-		
-		// Fix made:  Added IF statement to check vector size.  This should work, yes?
-		System.out.print("1");
 		if( myStops.size() > 0 ) {
-			System.out.print("2");
 			for (int i = 0; i < myStops.size(); i++) {
-				System.out.print(".");
-				temp += ((BusStop) getstop(i)).getName() + "\n";
+				temp += ((BusStop) getstop(i)).getName() + " : " + getstop(i).printLoc() + "\n";
 			}
 		} else {
 			temp = "No stops found";
 		}
-		System.out.print("|");
 		return temp;
 	}
 
