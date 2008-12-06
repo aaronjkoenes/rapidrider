@@ -51,6 +51,10 @@ public class BusStop {
 		return String.valueOf(myLoc.getLon());
 	}
 	
+	public String printLoc() {
+		return myLoc.printLoc();
+	}
+	
 	public String toString() {
 		return myName + " " + id + myLoc.toString();
 	}
