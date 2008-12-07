@@ -24,9 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  * @web.servlet-init-param name="A parameter" value="A value"
  */
 public class RapidRiderServlet extends HttpServlet {
+	static final long serialVersionUID = 1;
 
 	Connection conn; // holds database connection
-	static final long serialVersionUID = 1;
 	Statement stmt; // holds SQL statement
 
 	String targetLat = "", targetLon = "";
@@ -40,7 +40,7 @@ public class RapidRiderServlet extends HttpServlet {
 		out.println("<?xml version=\"1.0\"?>");
 		out.println("<rapidrider>");
 		if (req.getQueryString() != null) {		
-			String destinationAddress = req.getParameter("address");  //req.getParameter("address");
+			String destinationAddress = req.getParameter("address");
 			System.out.println(req.getQueryString());
 			getDestinationStop(destinationAddress);
 
@@ -58,7 +58,8 @@ public class RapidRiderServlet extends HttpServlet {
 				ResultSet res = stmt
 						.executeQuery("SELECT stopid, stop_name, latitude, longitude FROM busstops");
 	
-				if (res != null)
+				// TODO Question: Is it possible for res to be null?
+				if (res != null) {
 					while (res.next()) {
 						String stopID = res.getString(1);
 						String stopName = res.getString(2);
@@ -74,6 +75,7 @@ public class RapidRiderServlet extends HttpServlet {
 						out.println("<longitude>" + longitude + "</longitude>");
 						out.println("</busstop>");
 					}
+				}
 				res.close();
 				stmt.close();
 				conn.close();
@@ -85,6 +87,8 @@ public class RapidRiderServlet extends HttpServlet {
 		}
 		out.println("</rapidrider>");
 	}
+	
+	// TODO Question: Do we still want this code?
 	/*
 	public void getDestinationStop(stdestString) {
 		try {
@@ -109,7 +113,6 @@ public class RapidRiderServlet extends HttpServlet {
 	 * documents. This searches for ampersands and replaces them with the HTML
 	 * equivalent (&amp;)
 	 */
-	
 	public void getDestinationStop(String s) throws IOException {
 		String URLx = "http://tinygeocoder.com/create-api.php?q=" + replaceSpaces(s) ;
 		System.out.println(URLx);
@@ -130,10 +133,10 @@ public class RapidRiderServlet extends HttpServlet {
 		targetLon = s2[1];
 	}	
 	
-	public String replaceSpaces (String s) {
+	public String replaceSpaces(String s) {
 		String Result = "";
-		for( int i = 0; i < s.length(); i++ ) {
-			if( s.charAt(i) == ' ' ) {
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == ' ') {
 				Result += "%20";
 			} else {
 				Result += s.charAt(i);
