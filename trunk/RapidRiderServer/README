@@ -59,8 +59,8 @@ Setup Eclipse with a RapidRider server project:
      
   9. Tell Eclipse where to find the Postgres JDBC adapter.  Open up the 
      Properties for the project.  Go to Java Build Path.  Go to the Libraries 
-     tab.  Click Add Variable.  And add a variable PSQL_PACKAGE that points to 
-     your Postgres JDBC adapter jar file.  That file can be downloaded from:
+     tab.  Click Add Variable.  And add a variable PSQL that points to your 
+     Postgres JDBC adapter jar file.  That file can be downloaded from:
      
   http://cs.calvin.edu/curriculum/cs/262/kvlinden/resources/postgresql-8.1-407.jdbc3.jar
   
@@ -88,7 +88,9 @@ Setup Eclipse with a RapidRider server project:
      
   13. If you see a ClassNotFoundException talking about org.postgresql.Driver,
      then you may need to copy the Postgres JDBC adapter jar file into the
-     JBoss deploy folder.  I am not sure why this is.
+     JBoss deploy folder.  I am not sure why this is.  I have encountered this
+     problem on my own development machine and the Windows server that is set
+     up in the u-lab.
      
   14. If you have any questions or see any problems with these instructions,
      please contact Greg Clark about it.
