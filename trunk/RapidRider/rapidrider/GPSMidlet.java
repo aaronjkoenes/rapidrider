@@ -23,18 +23,15 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	private GPSDevice device;
 	private AppController screen;
 	private SimpleLoc temploc = new SimpleLoc();
-	// private static final String URL =
-	// "http://153.106.117.64:8080/monopolyServlet/Monopoly";
 	private String location = "";
-	private static String URL = "http://153.106.117.64:8080/rapidRiderServlet/RapidRider";
-	//private Vector busStopVector = new Vector();
+	private static String URL = 
+		"http://153.106.117.64:8080/rapidRiderServlet/RapidRider";
+//	private static String URL = 
+//		"http://localhost:8080/rapidRiderServlet/RapidRider";
 	private StringItem resultItem;
 	private Command cmdXMLRead;
 	private BusStop tempStop;
 	
-	
-	
-
 	public GPSMidlet() {
 		screen = new AppController();
 		cmdExit = new Command("Exit", Command.EXIT, 1);
@@ -46,7 +43,6 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		cmdGetDestinationStop = new Command("Get Dest. Stop", Command.ITEM, 1);
 		resultItem = new StringItem("", "");
 		
-		// TODO: This does not look well thought-through.
 		screen.append(resultItem);
 		
 		screen.addCommand(cmdExit);
@@ -59,15 +55,12 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 //		screen.getRoute().addStop(new BusStop(new SimpleLoc(1,1), "test 1"));
 //		screen.getRoute().addStop(new BusStop(new SimpleLoc(-2,2), "test 2"));
 //		screen.getRoute().addStop(new BusStop(new SimpleLoc(3,3), "test 3"));
-
-		
 	}
 
 	// TODO: Consider defining all classes in their own file.
 	class ReadXML extends Thread {
 		public void run() {
 			try {
-				//URL += "rt1"
 				HttpConnection connection;
 				if( !(screen.getDestinationAddress().equals(""))) {
 					connection = 
@@ -158,7 +151,6 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 					tempLat = tempLon = "";
 					System.out.println("loc: " + temploc.printLoc());
 				}
-				
 			}
 			//busStopVector.addElement(busStop);
 			System.out.println("We got HERE!!!!!!!!!");
@@ -225,12 +217,12 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 
 	public void commandAction(Command c, Displayable d) {
 		StringBuffer sb = new StringBuffer();
-		//BusStop stop;
 		if (c == cmdExit) {
 			try {
-				destroyApp(false); // Do MIDLet resource cleanup (see above).
-				notifyDestroyed(); // Tell the JVM that the user wants to
-				// terminate this midlet.
+				// Do MIDLet resource cleanup (see above).
+				destroyApp(false);
+				// Tell the JVM that the user wants to terminate this midlet.
+				notifyDestroyed();
 			} catch (MIDletStateChangeException e) {
 			}
 		} else if (c == cmdPause) {
