@@ -39,16 +39,17 @@ public class BusStop {
 		myLoc.setLat(Double.parseDouble(_latitude));
 	}
 
-	public String getLatitude() {
-		return String.valueOf(myLoc.getLat());
+	public double getLatitude() {
+		return myLoc.getLat();
 	}
 	
 	public void setLongitude(String _longitude) {
 		myLoc.setLon(Double.parseDouble(_longitude));
 	}
+	
 
-	public String getLongitude() {
-		return String.valueOf(myLoc.getLon());
+	public double getLongitude() {
+		return myLoc.getLon();
 	}
 	
 	public String printLoc() {

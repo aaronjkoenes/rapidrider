@@ -3,7 +3,6 @@ package rapidrider;
 public class SimpleLoc {
 	
 	private double myLat;
-
 	private double myLon;
 
 	public SimpleLoc() {
@@ -38,6 +37,10 @@ public class SimpleLoc {
 
 	// This function doesn't look correct to me.  TODO test.
 	public double distanceTo(SimpleLoc tar) {
+		double latDif = Math.abs(myLat) - Math.abs(tar.getLat() );
+		double lonDif = Math.abs(myLon) - Math.abs(tar.getLon() );
+		System.out.println(myLat + " " + myLon + " " + latDif + " " + 
+				lonDif + " " + latDif * latDif + " " + lonDif * lonDif );
 		double dist = Math.sqrt( 
 			 ( (Math.abs(myLat) - Math.abs(tar.getLat()) ) * ( Math.abs(myLat) - Math.abs(tar.getLat()) ) ) +
 			 ( (Math.abs(myLon) - Math.abs(tar.getLon()) ) * ( Math.abs(myLon) - Math.abs(tar.getLon()) ) )
