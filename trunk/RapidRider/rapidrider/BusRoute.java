@@ -20,7 +20,6 @@ public class BusRoute {
 	}
 
 	public int routeLength() {
-		System.out.println("RouteLength size: " + myStops.size());
 		return myStops.size();
 	}
 
@@ -35,7 +34,7 @@ public class BusRoute {
 		}
 		return temp;
 	}
-
+	
 	public void addStop(BusStop stop) {
 		myStops.addElement(stop);
 	}
