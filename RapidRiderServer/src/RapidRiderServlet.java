@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * Servlet Class
  * 
@@ -29,8 +30,10 @@ public class RapidRiderServlet extends HttpServlet {
 	Connection conn; // holds database connection
 	Statement stmt; // holds SQL statement
 
-	String targetLat = "", targetLon = "";
+	double targetLat = 0.0, targetLon = 0.0;
 	URL target;
+	private BusRoute route = new BusRoute("test Route");
+	private SimpleLoc currentLoc;
 	
 	// TODO: Add documentation?
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -39,16 +42,19 @@ public class RapidRiderServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		out.println("<?xml version=\"1.0\"?>");
 		out.println("<rapidrider>");
-		if (req.getQueryString() != null) {		
-			String destinationAddress = req.getParameter("address");
-			System.out.println(req.getQueryString());
-			getDestinationStop(destinationAddress);
-
+/*		if (req.getQueryString() != null) {		
+*/			String destinationAddress = req.getParameter("address");
+			double currentLat = Double.parseDouble(req.getParameter("lat"));
+			double currentLon = Double.parseDouble(req.getParameter("lon"));
+			currentLoc = new SimpleLoc(currentLat, currentLon);
+/*			System.out.println(req.getQueryString());
+*/			getDestinationStop(destinationAddress);
+/*
 			out.println("<destLoc>");
 			out.println("<latitude>" + targetLat + "</latitude>");
 			out.println("<longitude>" + targetLon + "</longitude>");
 			out.println("</destLoc>");
-		} else {										
+		} else {*/										
 			try {
 				Class.forName("org.postgresql.Driver");
 	
@@ -56,25 +62,37 @@ public class RapidRiderServlet extends HttpServlet {
 						"postgres", "bjarne");
 				stmt = conn.createStatement();
 				ResultSet res = stmt
-						.executeQuery("SELECT stopid, stop_name, latitude, longitude FROM busstops");
+						.executeQuery("SELECT * FROM busstops");
 	
 				// TODO Question: Is it possible for res to be null?
 				if (res != null) {
 					while (res.next()) {
-						String stopID = res.getString(1);
-						String stopName = res.getString(2);
-						String latitude = res.getString(3);
-						String longitude = res.getString(4);
+						double latitude = Double.parseDouble(res.getString(5));
+						double longitude = Double.parseDouble(res.getString(4));
 						
+//						String stopID = res.getString(1);
+						String stopName = res.getString(2);
 						String revisedStopName = replaceEscapeCharacters(stopName);
+						route.addStop(new BusStop(new SimpleLoc(latitude, longitude), revisedStopName));
+/*						String latitude = res.getString(3);
+						String longitude = res.getString(4);
+						*/
+						
 	
-						out.println("<busstop>");
+						
+/*						out.println("<busstop>");
 						out.println("<stopID>" + stopID + "</stopID>");
 						out.println("<stopName>" + revisedStopName + "</stopName>");
 						out.println("<latitude>" + latitude + "</latitude>");
 						out.println("<longitude>" + longitude + "</longitude>");
-						out.println("</busstop>");
+						out.println("</busstop>");*/
 					}
+					out.println("<busstop>");
+					out.println("<stopName>" + findNearest(currentLoc).getName() + "</stopName>");
+					out.println("</busstop>");
+					out.println("<busstop>");
+					out.println("<stopName>" + findNearest(new SimpleLoc(targetLat, targetLon)) + "</stopName>");
+					out.println("</busstop>");
 				}
 				res.close();
 				stmt.close();
@@ -83,30 +101,52 @@ public class RapidRiderServlet extends HttpServlet {
 			} catch (Exception e) {
 				out.println("error in JDBC access: " + e.getClass() + " : "
 						+ e.getMessage());
+				e.printStackTrace();
 			}
-		}
+//		}
 		out.println("</rapidrider>");
 	}
 	
-	// TODO Question: Do we still want this code?
-	/*
-	public void getDestinationStop(stdestString) {
-		try {
-			URL site = new URL("http://tinygeocoder.com/create-api.php?q=");
-			HttpURLConnection connection = (HttpURLConnection) site.openConnection(); //Connector.open(site + destinationAddress);
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; JVM) ");
-			connection.setRequestProperty("Pragma", "no-cache");
-			connection.connect();
-			
-			BufferedReader reader = new BufferedReader( new InputStreamReader(connection.getInputStream()));
-			String line = null;
-			while((line = reader.readLine()) != null ) {
-				System.out.println(line);
+	public void findNearest() {
+		int nearestLocIndex = 0;
+		double distance = 0.0;
+		double shortest = -1.0;
+		System.out.println(route.listStops());
+		int length = route.routeLength();
+		for (int i = 0; i < length; i++) {
+			distance = currentLoc.distanceTo(new SimpleLoc(route.getstop(i).getLatitude(),route.getstop(i).getLongitude()));
+			if (shortest > distance || shortest < 0) {
+				shortest = distance;
+				nearestLocIndex = i;
 			}
-*/
+		}
+		// nearestLocation.setText(route.getstop(nearestLocIndex).getName());
+	}
 	
-	
+	public BusStop findNearest(SimpleLoc l) {
+		int nearestLocIndex = -1;
+		double distance = 0.0;
+		double shortest = -1.0;
+//		System.out.println(route.listStops());
+		int length = route.routeLength();
+		for (int i = 0; i < length; i++) {
+			double locationLat = route.getstop(i).getLatitude();
+			double locationLon = route.getstop(i).getLongitude();
+			SimpleLoc location = new SimpleLoc(locationLat, locationLon);
+			distance = l.distanceTo(location);
+//			System.out.print("Distance found: " + distance);
+			if (shortest > distance || shortest < 0) {
+//				System.out.println(".  Shorter.  Setting to " + route.getstop(i).getName());
+				shortest = distance;
+				nearestLocIndex = i;
+			} else {
+//				System.out.println();
+			}
+		}
+		return route.getstop(nearestLocIndex);
+		//nearestToDest.setText(route.getstop(nearestLocIndex).getName());
+	}
+
 	
 	/*
 	 * This portion of the code protects the XML. Ampersands (&) break XML
@@ -123,14 +163,13 @@ public class RapidRiderServlet extends HttpServlet {
 		in.close();
 		x.close();
 		parse(result);
-		System.out.println("Target Lat:  " + targetLat + "\nTarget Long: " + targetLon);
 	}
 
 
 	public void parse(String s ) {
 		String[] s2 = s.split(",");
-		targetLat = s2[0];
-		targetLon = s2[1];
+		targetLat = Double.parseDouble(s2[0]);
+		targetLon = Double.parseDouble(s2[1]);
 	}	
 	
 	public String replaceSpaces(String s) {
