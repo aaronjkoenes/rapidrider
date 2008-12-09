@@ -1,9 +1,12 @@
 package rapidrider;
 
+
 import java.util.Date;
+
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
 import javax.microedition.lcdui.TextField;
+
 import ext.javax.microedition.location.Location;
 
 public class AppController extends Form implements Runnable {

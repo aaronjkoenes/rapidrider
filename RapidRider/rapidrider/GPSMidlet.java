@@ -9,7 +9,6 @@ import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.List;
 import javax.microedition.lcdui.StringItem;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
@@ -23,14 +22,14 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	private Command cmdExit, cmdPause, cmdRestart;  /* cmdXMLRead, */
 	private GPSDevice device;
 	private AppController screen;
-	private SimpleLoc temploc = new SimpleLoc();
+
 	// private static final String URL =
 	// "http://153.106.117.64:8080/monopolyServlet/Monopoly";
 	private static String URL = "http://localhost:8080/rapidRiderServlet/RapidRider";
 	//private Vector busStopVector = new Vector();
 	private StringItem resultItem;
 	private Command cmdGetRoute;
-	private BusStop tempStop;
+
 //	private List stopNames = new List("Stops: ", List.MULTIPLE);
 	private String stopNames = "\n";
 	
@@ -103,7 +102,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 			XmlPullParserException {
 			parser.require(XmlPullParser.START_TAG, null, "busstop");
 			
-			tempStop = new BusStop();
+
 			while (parser.nextTag() != XmlPullParser.END_TAG) {
 				parser.require(XmlPullParser.START_TAG, null, null);
 				String name = parser.getName();
@@ -163,7 +162,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	}
 
 	public void commandAction(Command c, Displayable d) {
-		StringBuffer sb = new StringBuffer();
+
 		//BusStop stop;
 		if (c == cmdExit) {
 			try {
