@@ -12,6 +12,15 @@
 <zipfileset dir="bin/WEB-INF" prefix="WEB-INF">
 <include name="web.xml"/>
 </zipfileset>
+<zipfileset dir="bin">
+<include name="SimpleLoc.class"/>
+</zipfileset>
+<zipfileset dir="bin">
+<include name="BusRoute.class"/>
+</zipfileset>
+<zipfileset dir="bin">
+<include name="BusStop.class"/>
+</zipfileset>
 </jar>
 </target>
 </project>

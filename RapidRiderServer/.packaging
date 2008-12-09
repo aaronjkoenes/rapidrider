@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <configurations>
 <archive destination="" exploded="false" name="rapidRiderServlet.war" used="true">
 <file location="bin/RapidRiderServlet.class" name="RapidRiderServlet.class" prefix="WEB-INF/classes/" project="" projectLocation="bin/RapidRiderServlet.class" used="true"/>
 <file location="bin/WEB-INF/jboss-web.xml" name="jboss-web.xml" prefix="WEB-INF" project="" projectLocation="bin/WEB-INF/jboss-web.xml" used="true"/>
 <file location="bin/WEB-INF/web.xml" name="web.xml" prefix="WEB-INF" project="" projectLocation="bin/WEB-INF/web.xml" used="true"/>
+<file location="bin/SimpleLoc.class" name="SimpleLoc.class" prefix="" project="" projectLocation="bin/SimpleLoc.class" used="true"/>
+<file location="bin/BusRoute.class" name="BusRoute.class" prefix="" project="" projectLocation="bin/BusRoute.class" used="true"/>
+<file location="bin/BusStop.class" name="BusStop.class" prefix="" project="" projectLocation="bin/BusStop.class" used="true"/>
 </archive>
 </configurations>
