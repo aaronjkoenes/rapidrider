@@ -48,7 +48,7 @@ public class RapidRiderServlet extends HttpServlet {
 			double currentLon = Double.parseDouble(req.getParameter("lon"));
 			currentLoc = new SimpleLoc(currentLat, currentLon);
 /*			System.out.println(req.getQueryString());
-*/			getDestinationStop(destinationAddress);
+*/			getDestinationCoords(destinationAddress);
 /*
 			out.println("<destLoc>");
 			out.println("<latitude>" + targetLat + "</latitude>");
@@ -67,31 +67,34 @@ public class RapidRiderServlet extends HttpServlet {
 				// TODO Question: Is it possible for res to be null?
 				if (res != null) {
 					while (res.next()) {
-						double latitude = Double.parseDouble(res.getString(5));
-						double longitude = Double.parseDouble(res.getString(4));
-						
-//						String stopID = res.getString(1);
 						String stopName = res.getString(2);
+						double longitude = Double.parseDouble(res.getString(4));
+						double latitude = Double.parseDouble(res.getString(5));
+						
 						String revisedStopName = replaceEscapeCharacters(stopName);
-						route.addStop(new BusStop(new SimpleLoc(latitude, longitude), revisedStopName));
+						BusStop temp = new BusStop(new SimpleLoc(latitude, longitude), revisedStopName);
+						route.addStop(temp);
+//						out.println("<busstop>");
+////						temp2 = route.getstop(route.routeLength());
+//						out.println("<stopName>" + temp.getName() + " " + temp.getLatitude() + " " + temp.getLongitude() + "</stopName>");
+//						out.println("</busstop>");
+
 /*						String latitude = res.getString(3);
 						String longitude = res.getString(4);
-						*/
-						
-	
-						
-/*						out.println("<busstop>");
+						out.println("<busstop>");
 						out.println("<stopID>" + stopID + "</stopID>");
 						out.println("<stopName>" + revisedStopName + "</stopName>");
 						out.println("<latitude>" + latitude + "</latitude>");
 						out.println("<longitude>" + longitude + "</longitude>");
-						out.println("</busstop>");*/
+						out.println("</busstop>");
+
+*/
 					}
 					out.println("<busstop>");
 					out.println("<stopName>" + findNearest(currentLoc).getName() + "</stopName>");
 					out.println("</busstop>");
 					out.println("<busstop>");
-					out.println("<stopName>" + findNearest(new SimpleLoc(targetLat, targetLon)) + "</stopName>");
+					out.println("<stopName>" + findNearest(new SimpleLoc(targetLat, targetLon)).getName() + "</stopName>");
 					out.println("</busstop>");
 				}
 				res.close();
@@ -107,7 +110,7 @@ public class RapidRiderServlet extends HttpServlet {
 		out.println("</rapidrider>");
 	}
 	
-	public void findNearest() {
+/*	public void findNearest() {
 		int nearestLocIndex = 0;
 		double distance = 0.0;
 		double shortest = -1.0;
@@ -121,7 +124,7 @@ public class RapidRiderServlet extends HttpServlet {
 			}
 		}
 		// nearestLocation.setText(route.getstop(nearestLocIndex).getName());
-	}
+	}*/
 	
 	public BusStop findNearest(SimpleLoc l) {
 		int nearestLocIndex = -1;
@@ -153,7 +156,7 @@ public class RapidRiderServlet extends HttpServlet {
 	 * documents. This searches for ampersands and replaces them with the HTML
 	 * equivalent (&amp;)
 	 */
-	public void getDestinationStop(String s) throws IOException {
+	public void getDestinationCoords(String s) throws IOException {
 		String URLx = "http://tinygeocoder.com/create-api.php?q=" + replaceSpaces(s) ;
 		System.out.println(URLx);
 		target = new URL(URLx);
