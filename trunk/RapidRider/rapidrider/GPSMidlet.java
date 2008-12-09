@@ -20,7 +20,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class GPSMidlet extends MIDlet implements CommandListener {
 
-	private Command cmdExit, cmdPause, cmdRestart, cmdFindNearest, cmdGetDestinationStop;  /* cmdXMLRead, */
+	private Command cmdExit, cmdPause, cmdRestart;  /* cmdXMLRead, */
 	private GPSDevice device;
 	private AppController screen;
 	private SimpleLoc temploc = new SimpleLoc();
@@ -29,10 +29,10 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	private static String URL = "http://localhost:8080/rapidRiderServlet/RapidRider";
 	//private Vector busStopVector = new Vector();
 	private StringItem resultItem;
-	private Command cmdXMLRead;
+	private Command cmdGetRoute;
 	private BusStop tempStop;
-	private List stopNames = new List("Stops: ", List.MULTIPLE);
-	
+//	private List stopNames = new List("Stops: ", List.MULTIPLE);
+	private String stopNames = "\n";
 	
 
 	public GPSMidlet() {
@@ -40,10 +40,10 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		cmdExit = new Command("Exit", Command.EXIT, 1);
 		cmdPause = new Command("Pause", Command.ITEM, 1);
 		cmdRestart = new Command("Restart", Command.ITEM, 1);
-		cmdXMLRead = new Command("Get XML Data", Command.OK, 1);
+		cmdGetRoute = new Command("Get Route", Command.OK, 1);
 		device = new GPSDevice(screen);
-		cmdFindNearest = new Command("Find Nearest", Command.ITEM, 1);
-		cmdGetDestinationStop = new Command("Get Dest. Stop", Command.ITEM, 1);
+
+
 		resultItem = new StringItem("", "");
 		
 		// TODO: This does not look well thought-through.
@@ -51,9 +51,9 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		
 		screen.addCommand(cmdExit);
 		screen.addCommand(cmdPause);
-		screen.addCommand(cmdFindNearest);
-		screen.addCommand(cmdXMLRead);
-		screen.addCommand(cmdGetDestinationStop);
+
+		screen.addCommand(cmdGetRoute);
+
 		screen.setCommandListener(this);
 		
 //		screen.getRoute().addStop(new BusStop(new SimpleLoc(1,1), "test 1"));
@@ -67,16 +67,13 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	class ReadXML extends Thread {
 		public void run() {
 			try {
-				//URL += "rt1"
-				HttpConnection connection;
-//				if( !(screen.getDestinationAddress().equals(""))) {
-					connection = 
-						(HttpConnection) Connector.open(URL + "?address=" + 
-								replaceSpaces(screen.getDestinationAddress() + " Grand Rapids, MI" + 
-								"&lat=" + screen.getCurrentLocation().getLat() + "&lon=" +
-								screen.getCurrentLocation().getLon()));
-					System.out.println("URL:  " + URL + replaceSpaces(screen.getDestinationAddress() + 
-					" Grand Rapids, MI"));
+				String URLtarget = URL + "?address=" + 
+				replaceSpaces(screen.getDestinationAddress() + " Grand Rapids, MI" + 
+						"&lat=" + screen.getCurrentLocation().getLat() + "&lon=" +
+						screen.getCurrentLocation().getLon());
+				HttpConnection connection = 
+					(HttpConnection) Connector.open(URLtarget);
+					System.out.println("URL:  " + URLtarget);
 /*				} else {
 				connection = 
 					(HttpConnection) Connector.open(URL);
@@ -92,6 +89,8 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 				parser.require(XmlPullParser.END_TAG, null, "rapidrider");
 				parser.next();
 				parser.require(XmlPullParser.END_DOCUMENT, null, null);
+				screen.setNearestLoc(stopNames);
+				stopNames = "\n";
 			} catch (Exception e) {
 				e.printStackTrace();
 				resultItem.setLabel("Error:");
@@ -102,8 +101,6 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 
 	private void readXMLData(KXmlParser parser) throws IOException,
 			XmlPullParserException {
-		String tempId = "", tempName = "", tempLat = "", tempLon = "";
-//		if( parser.getName().equals("busstop") ) {
 			parser.require(XmlPullParser.START_TAG, null, "busstop");
 			
 			tempStop = new BusStop();
@@ -111,70 +108,10 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 				parser.require(XmlPullParser.START_TAG, null, null);
 				String name = parser.getName();
 				String text = parser.nextText();
-				
-				stopNames.append(name, null);
-				
-				/*if (name.equals("stopID")) 
-					tempId = text.trim();
-					//tempStop.setId(text);
-				else if (name.equals("stopName"))
-					tempName = text.trim();
-					//tempStop.setName(text);
-				else if (name.equals("latitude"))
-					tempLat = text.trim();
-					//tempStop.setLatitude(text);
-				else if (name.equals("longitude"))
-					tempLon = text.trim();
-					//tempStop.setLongitude(text);
-*/	
-	
+				stopNames += (text + "\n");
 				parser.require(XmlPullParser.END_TAG, null, name);
-	
-				
-				
-/*				if( tempId != "" && tempName != "" && tempLat != "" && tempLon != "") {
-					
-					
-					tempStop.setId(tempId);
-					tempStop.setName(tempName);
-					tempStop.setLatitude(tempLat);
-					tempStop.setLongitude(tempLon);
-					screen.getRoute().addStop(tempStop);
-					tempId = tempName = tempLat = tempLon = null;
-				}*/
 			}
-			//busStopVector.addElement(busStop);
 			parser.require(XmlPullParser.END_TAG, null, "busstop");
-			String stops = "";
-			for( int i = 0 ; i < stopNames.size(); i++ ) {
-				stops.concat(stopNames.getString(1)).concat("\n");
-			}
-			screen.setStopList(stops);
-//		} else if( parser.getName().equals("destLoc") ) {
-//			parser.require(XmlPullParser.START_TAG, null, "destLoc");
-//			while (parser.nextTag() != XmlPullParser.END_TAG) {
-//				parser.require(XmlPullParser.START_TAG, null, null);
-//				String name = parser.getName();
-//				String text = parser.nextText();
-//				if (name.equals("latitude"))
-//					tempLat = text.trim();
-//				else if (name.equals("longitude"))
-//					tempLon = text.trim();
-//
-//				parser.require(XmlPullParser.END_TAG, null, name);
-//				
-//				if( tempLat != "" && tempLon != "" ) {
-//					temploc.setLat(Double.parseDouble(tempLat));
-//					temploc.setLon(Double.parseDouble(tempLon));
-//					tempLat = tempLon = "";
-//					System.out.println("loc: " + temploc.printLoc());
-//				}
-//				
-//			}
-//			//busStopVector.addElement(busStop);
-//			System.out.println("We got HERE!!!!!!!!!");
-//			parser.require(XmlPullParser.END_TAG, null, "destLoc");
-//		}
 	}
 	
 	public String replaceSpaces (String s) {
@@ -199,9 +136,9 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		screen.stop();
 		device.stop();
 		screen.removeCommand(cmdPause);
-		screen.removeCommand(cmdFindNearest);
-		screen.removeCommand(cmdXMLRead);
-		screen.removeCommand(cmdGetDestinationStop);
+
+		screen.removeCommand(cmdGetRoute);
+
 		screen.addCommand(cmdRestart);
 	}
 	
@@ -213,9 +150,9 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		
 		screen.removeCommand(cmdRestart);
 		screen.addCommand(cmdPause);
-		screen.addCommand(cmdFindNearest);
-		screen.addCommand(cmdXMLRead);
-		screen.addCommand(cmdGetDestinationStop);
+
+		screen.addCommand(cmdGetRoute);
+
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
@@ -224,15 +161,6 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 		screen = null;
 		System.gc();
 	}
-	
-/*	public void setStops () {
-		BusStop stop = new BusStop();
-		new ReadXML().start();
-		for (int i = 0; i < busStopVector.size(); i++) {
-			stop = (BusStop) busStopVector.elementAt(i);
-		}
-		screen.getRoute().addStop(stop);
-	}*/
 
 	public void commandAction(Command c, Displayable d) {
 		StringBuffer sb = new StringBuffer();
@@ -246,27 +174,12 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 			}
 		} else if (c == cmdPause) {
 			pauseApp();
-														/*		} else if (c == cmdGetDestinationStop) {
-																	try {
-														
-																		screen.getDestinationStop();
-														
-																	} catch (IOException e) {
-																		System.out.println("CAUGHT EXCEPTION");
-																	}*/
-		} else if (c == cmdXMLRead) {
-			//screen.getRoute().removeAllStops();
+		} else if (c == cmdGetRoute) {
+			screen.setNearestLoc("Working...");
 			new ReadXML().start();
-			//sb.append("Stops Received");
-			screen.setNearestLoc(screen.getRoute().getstop(0).getName());
-			screen.setNearestDestLoc(screen.getRoute().getstop(screen.getRoute().routeLength() - 1).getName());
+			
 		} else if (c == cmdRestart) {
 			restartApp();
-	/*	} else if (c == cmdFindNearest) {
-			findRoute();
-			screen.findNearest();
-			screen.findNearest(temploc);
-		*/
 		}	
 	}
 }

@@ -34,13 +34,11 @@ public class AppController extends Form implements Runnable {
 
 		route = new BusRoute("Testing Route");
 
-		currentLoc = new SimpleLoc(42.92780267230398, -85.58997631072998);
+		currentLoc = new SimpleLoc(42.92230337537845, -85.58452606201172);
 
 		append(locationString);
 		append(timeString);
 		append(statusString);
-		
-//		append(nearestToDest);
 		append(destinationAddress);
 		append(allStops);
 	}
@@ -59,8 +57,8 @@ public class AppController extends Form implements Runnable {
 
 	private void updateDisplay() {
 		if (location != null) {
-			 currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
-			 currentLoc.setLon(location.getQualifiedCoordinates().getLongitude());
+//			 currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
+//			 currentLoc.setLon(location.getQualifiedCoordinates().getLongitude());
 			locationString.setText(currentLoc.printLoc());
 			currentDate = new Date(location.getTimestamp());
 			timeString.setText("(" + currentDate.toString() + ")");
@@ -94,6 +92,7 @@ public class AppController extends Form implements Runnable {
 	}
 	
 	public void setNearestDestLoc(String s)  {
+		System.out.println("Setting text to: " + s);
 		nearestToDest.setText(s);
 	}
 	
