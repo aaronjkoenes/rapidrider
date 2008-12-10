@@ -109,23 +109,7 @@ public class RapidRiderServlet extends HttpServlet {
 //		}
 		out.println("</rapidrider>");
 	}
-	
-/*	public void findNearest() {
-		int nearestLocIndex = 0;
-		double distance = 0.0;
-		double shortest = -1.0;
-		System.out.println(route.listStops());
-		int length = route.routeLength();
-		for (int i = 0; i < length; i++) {
-			distance = currentLoc.distanceTo(new SimpleLoc(route.getstop(i).getLatitude(),route.getstop(i).getLongitude()));
-			if (shortest > distance || shortest < 0) {
-				shortest = distance;
-				nearestLocIndex = i;
-			}
-		}
-		// nearestLocation.setText(route.getstop(nearestLocIndex).getName());
-	}*/
-	
+		
 	public BusStop findNearest(SimpleLoc l) {
 		int nearestLocIndex = -1;
 		double distance = 0.0;
@@ -200,6 +184,7 @@ public class RapidRiderServlet extends HttpServlet {
 				revisedStopName += c;
 			}
 		}
+		
 		return revisedStopName;
 	}
 
