@@ -75,9 +75,11 @@ Setup Eclipse with a RapidRider project:
   
   9. Tell Eclipse about J2ME.  Open the Properties for the project.  Select the
      J2ME tab.  If you are in the u-lab, you will probably be able to set the
-     Group to the single option and be good to go.  Otherwise, click Manage 
-     Devices, select the root of the WTK directory, and refresh the device 
-     list.  Choose the device you would like the emulator to use.
+     Group to the single option and be good to go.  
+     
+     Otherwise, click Manage Devices.  Then click Import. Then select the root 
+     of the WTK directory, and refresh the device list.  Choose the device you 
+     would like the emulator to use.
      
   10. Tell Eclipse to compile backwards compatable code.  Open the Properties 
      for the project.  Select Java Compiler.  Enable project specific settings.
