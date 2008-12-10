@@ -19,14 +19,14 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class GPSMidlet extends MIDlet implements CommandListener {
 
-	private Command cmdExit, cmdPause, cmdRestart;  /* cmdXMLRead, */
+	private Command cmdExit, cmdPause, cmdRestart;
 	private GPSDevice device;
 	private AppController screen;
 
 	// private static final String URL =
 	// "http://153.106.117.64:8080/monopolyServlet/Monopoly";
-	private static String URL = "http://localhost:8080/rapidRiderServlet/RapidRider";
-	//private Vector busStopVector = new Vector();
+	private static String URL = 
+		"http://localhost:8080/rapidRiderServlet/RapidRider";
 	private StringItem resultItem;
 	private Command cmdGetRoute;
 
