@@ -11,8 +11,7 @@ import ext.javax.microedition.location.Location;
 
 public class AppController extends Form implements Runnable {
 
-	// delay in milliseconds
-	private static final int DELAY = 10000;  // 1 sec
+	private static final int DELAY = 10000;  // Ten second delay
 	private boolean running;
 	private StringItem locationString, timeString, statusString, allStops, nearestToDest;
 	private TextField destinationAddress;
