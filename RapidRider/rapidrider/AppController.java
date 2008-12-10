@@ -38,8 +38,8 @@ public class AppController extends Form implements Runnable {
 
 		currentLoc = new SimpleLoc(42.92230337537845, -85.58452606201172);
 
-		append(locationString);
-		append(timeString);
+//		append(locationString);
+//		append(timeString);
 		append(statusString);
 		append(destinationAddress);
 		append(allStops);
@@ -59,11 +59,11 @@ public class AppController extends Form implements Runnable {
 
 	private void updateDisplay() {
 		if (location != null) {
-//			 currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
-//			 currentLoc.setLon(location.getQualifiedCoordinates().getLongitude());
-			locationString.setText(currentLoc.printLoc());
-			currentDate = new Date(location.getTimestamp());
-			timeString.setText("(" + currentDate.toString() + ")");
+			 currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
+			 currentLoc.setLon(location.getQualifiedCoordinates().getLongitude());
+//			locationString.setText(currentLoc.printLoc());
+//			currentDate = new Date(location.getTimestamp());
+//			timeString.setText("(" + currentDate.toString() + ")");
 		}
 
 		statusString.setText(status);
