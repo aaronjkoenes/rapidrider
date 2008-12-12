@@ -14,10 +14,17 @@ We started each user test by explaining the purpose of our application and littl
   * Typed in "woodland mall" and got back "Claystone & East Beltline" for a arrival stop.
   * Wants to see the stops labeled ("Start Stop", "End Stop").
   * Had a lot of trouble typing in the on-screen keyboard.
-  * Typed "1122 spring st" and got back "Fuller & Leonard", this is not the closest stop (this is due to lack of routes in the database).
+  * Typed their address and got back "Fuller & Leonard", this is not the closest stop (this is due to lack of routes in the database).
   * When the Palm went to sleep, it froze the application.
+  * Said they would use it, if they rode the bus.
 
 == User #2 ==
-
+  * 
 
 = Things Learned =
+  * Implement more routes.
+  * "Pause" should change the "Status"
+  * Label "Start Stop" and "End Stop"
+  * Find a solution to prevent the Palm from freezing when it goes to sleep while the application is running.
+  * When a destination is not found it defaults to "Ottawa & Pearl", how can we fix this?
+  * 
