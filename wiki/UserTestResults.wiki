@@ -1,0 +1,23 @@
+#summary This page is a summary of our results from the user tests.
+
+= Introduction =
+
+We started each user test by explaining the purpose of our application and little bit about how it works. We then started the application and let them use it. We explained to them that they couldn't do anything wrong and if any problems arise that they are our fault. We recorded their reactions, questions, and opinions. We gave little to no guidance while they used the application.
+
+
+= Details for each test =
+
+== User #1 ==
+  * Didn't understand what "Pause" was for.
+  * Was confused on how to enter a destination.
+  * Would have liked to see a drop-down list of bus stops.
+  * Typed in "woodland mall" and got back "Claystone & East Beltline" for a arrival stop.
+  * Wants to see the stops labeled ("Start Stop", "End Stop").
+  * Had a lot of trouble typing in the on-screen keyboard.
+  * Typed "1122 spring st" and got back "Fuller & Leonard", this is not the closest stop (this is due to lack of routes in the database).
+  * When the Palm went to sleep, it froze the application.
+
+== User #2 ==
+
+
+= Things Learned =
