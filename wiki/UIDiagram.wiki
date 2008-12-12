@@ -1,0 +1,5 @@
+#summary This page shows the UI Diagram.
+
+== User-Interface ==
+
+<img src="http://lh4.ggpht.com/_OVtp2MZB6DQ/SULt74VmcdI/AAAAAAAAAHA/Em5M71fnvh4/s800/uidiagram.jpg" />
