@@ -12,7 +12,7 @@
   * Drag or Add "J9JavaVMMidp20" into the Palm install list.
   * HotSync the Palm.
 
-=== Installing {{{RapidRider}}} ===
+=== Installing Rapidrider ===
   * Open "IBM Java VM" on the Palm Device.
   * Tap "Install" and enter in this address: `http://rapidrider.googlecode.com/files/RapidRider.jad`
 
