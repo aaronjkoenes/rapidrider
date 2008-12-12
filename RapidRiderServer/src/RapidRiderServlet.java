@@ -62,7 +62,7 @@ public class RapidRiderServlet extends HttpServlet {
 						"postgres", "bjarne");
 				stmt = conn.createStatement();
 				ResultSet res = stmt
-						.executeQuery("SELECT * FROM busstops");
+						.executeQuery("SELECT * FROM bus_stops");
 	
 				// TODO Question: Is it possible for res to be null?
 				if (res != null) {
