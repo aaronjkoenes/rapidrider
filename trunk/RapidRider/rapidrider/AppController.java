@@ -36,7 +36,7 @@ public class AppController extends Form implements Runnable {
 
 		route = new BusRoute("Testing Route");
 
-		currentLoc = new SimpleLoc(42.92230337537845, -85.58452606201172);
+		currentLoc = new SimpleLoc(42.927, -85.5903);
 
 //		append(locationString);
 //		append(timeString);
