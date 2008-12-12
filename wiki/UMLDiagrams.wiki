@@ -1,4 +1,4 @@
-#page of UML diagrams
+#summary This page of UML diagrams
 
 == Use Case Diagram ==
 
