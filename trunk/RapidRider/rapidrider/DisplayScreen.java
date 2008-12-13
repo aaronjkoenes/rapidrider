@@ -8,7 +8,7 @@ import ext.javax.microedition.location.Location;
 
 public class DisplayScreen extends Form implements Runnable {
 
-	private static final int DELAY = 5000; // five second delay
+	private static final int DELAY = 5000; // Five second delay
 
 	private boolean running;
 
@@ -29,11 +29,10 @@ public class DisplayScreen extends Form implements Runnable {
 		destinationAddress = new TextField("Destination: ", "", 50,
 				TextField.ANY);
 		statusItem = new StringItem("Status: ", "");
-
-		currentLoc = new SimpleLoc(location.getQualifiedCoordinates()
-				.getLatitude(), location.getQualifiedCoordinates()
-				.getLongitude());
-
+		// Initialize the current location to be Calvin College. If the GPS
+		// device is connected, the location will be updated.
+		currentLoc = new SimpleLoc(42.927, -85.5903);
+		directions = new StringItem("Directions: ", "");
 		append(statusItem);
 		append(destinationAddress);
 		append(directions);
@@ -49,9 +48,9 @@ public class DisplayScreen extends Form implements Runnable {
 		location = l;
 	}
 
-	// Update the display... and what?
-	// Question: when is this called?
-	// Answer: Constantly, with a delay of DELAY between the calls.
+	// This method is constantly called with a delay of DELAY between the calls.
+	// It updates currentLoc according to the GPS device's location and updates
+	// the display.
 	private void updateDisplay() {
 		if (location != null) {
 			currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
