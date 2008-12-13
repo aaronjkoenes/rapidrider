@@ -2,7 +2,7 @@
 
 == UML File ==
 
-The !RapidRider UML file is the in the repository: [http://rapidrider.googlecode.com/svn/trunk/RapidRider/uml/RapidRider.uml Download]
+The !RapidRider UML file is the in the repository: [http://rapidrider.googlecode.com/svn/trunk/RapidRider/uml/RapidRider.uml Download]  (Right click that link and select "Save Link As...")
 
 == Use Case Diagram ==
 
@@ -15,3 +15,7 @@ The !RapidRider UML file is the in the repository: [http://rapidrider.googlecode
 == Class Model ==
 
 <a href="http://picasaweb.google.com/lh/photo/igGVU-ZcSdZZPy8FWopoBg"><img src="http://lh6.ggpht.com/_OVtp2MZB6DQ/STb1OlCFcxI/AAAAAAAAAGQ/WJYWZdibSzw/s800/app.jpg" /></a>
+
+== Sequence Model ==
+
+== Deployment Model ==
