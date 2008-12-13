@@ -17,12 +17,12 @@ public class DirectionsFetcher implements Runnable {
 	// "http://localhost:8080/rapidRiderServlet/RapidRider";
 
 	private String targetURL;
-	private AppController screen;
+	private DisplayScreen screen;
 
 	// Construct a directions fetcher.
 	// It uses the given screen to get the destination and current location
 	// when it is time to fetch directions.
-	public DirectionsFetcher(AppController _screen) {
+	public DirectionsFetcher(DisplayScreen _screen) {
 		screen = _screen;
 	}
 
@@ -83,7 +83,7 @@ public class DirectionsFetcher implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			// OR, it could call something like screen.setError().
-			screen.setDirections("Error! " + e.toString());
+			screen.setDirections("Error: " + e.toString());
 		}
 	}
 
