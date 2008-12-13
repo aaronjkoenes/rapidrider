@@ -30,12 +30,10 @@ public class SimpleLoc {
 		return latitude + ", " + longitude;
 	}
 
-	// I swear Brett and I already fixed this...
-	// That's the beauty of having the same class in two different projects...
-	// TODO test.
-	public double distanceTo(SimpleLoc tar) {
-		double latitudeDifference = latitude - tar.getLat();
-		double longitudeDifference = longitude - tar.getLon();
+	// Calculates distance (in degrees) from this to target.
+	public double distanceTo(SimpleLoc target) {
+		double latitudeDifference = latitude - target.getLat();
+		double longitudeDifference = longitude - target.getLon();
 		return Math.sqrt(latitudeDifference * latitudeDifference
 				+ longitudeDifference * longitudeDifference);
 	}
