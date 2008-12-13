@@ -15,10 +15,10 @@ public class GPSDevice {
 
 	private LocationProvider locationProvider;
 
-	private AppController screen;
+	private DisplayScreen screen;
 
 	// Construct a new GPS device object...
-	public GPSDevice(AppController _screen) {
+	public GPSDevice(DisplayScreen _screen) {
 		screen = _screen;
 	}
 
@@ -40,7 +40,7 @@ public class GPSDevice {
 		}
 	};
 
-	// Start what?
+	// Start connection to GPS Device
 	public void start() {
 		if (locationProvider == null) {
 			try {
@@ -55,7 +55,7 @@ public class GPSDevice {
 		}
 	}
 
-	// Stop what?
+	// Stop connection to GPS Device
 	public void stop() {
 		if (locationProvider != null) {
 			locationProvider.setLocationListener(null, -1, -1, -1);
