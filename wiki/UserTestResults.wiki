@@ -11,7 +11,7 @@ We started each user test by explaining the purpose of our application and littl
   * Didn't understand what "Pause" was for.
   * Was confused on how to enter a destination.
   * Would have liked to see a drop-down list of bus stops.
-  * Typed in "woodland mall" and got back "Claystone & East Beltline" for a arrival stop.
+  * Typed in "mall" and got back "Claystone & East Beltline" for a arrival stop.
   * Wants to see the stops labeled ("Start Stop", "End Stop").
   * Had a lot of trouble typing in the on-screen keyboard.
   * Typed their address and got back "Fuller & Leonard", this is not the closest stop (this is due to lack of routes in the database).
@@ -19,12 +19,30 @@ We started each user test by explaining the purpose of our application and littl
   * Said they would use it, if they rode the bus.
 
 == User #2 ==
-  * 
+  * When trying to type a "w" in portrait mode they would end up clicking "Exit" (Palm has a broken screen).
+  * Was confused by the two stops that were given back. "Which do I go to?"
+  * "woodland mall" -> "Ottawa & Fulton" (way wrong).
+  * Felt landscape mode helped.
+  * Felt the Exit button was too close to the on-screen keyboard.
+
+== User #3 ==
+  * Moved closer to GPS Device to get it to connect.
+  * Felt the results need labels.
+  * Wanted a way to reset the input field.
+  * Had trouble typing while it connected to the GPS Device.
+  * "calvin collegee" -> "Raybrook & Burton".
+
+== User #4 ==
+  * Typed in "museum" and pressed return on the on-screen keyboard. This inserted a return in the field. Then tapped "Get Route" and received an XML parsing error.
+  * Removed the return and tapped "Get Route". This resulted in just "Ottawa and Fulton" being displayed along with the error from before.
+  * Didn't know what it was doing when the application was restarted. (it was connecting to the GPS Device).
 
 = Things Learned =
   * Implement more routes.
-  * "Pause" should change the "Status"
+  * "Pause" should change the "Status" to "paused"
+  * While the application is connecting to the GPS Device it should change the status to "connecting..."
   * Label "Start Stop" and "End Stop"
   * Find a solution to prevent the Palm from freezing when it goes to sleep while the application is running.
   * When a destination is not found it defaults to "Ottawa & Pearl", how can we fix this?
-  * 
+  * Add a "Clear" button to clear the destination input field.
+  * Remove returns when they are input into the destination field. Or capture them to run "Get Route".
