@@ -6,39 +6,37 @@ import javax.microedition.lcdui.TextField;
 
 import ext.javax.microedition.location.Location;
 
-// The main screen.
-// Should this be renamed?  I think so..
-public class AppController extends Form implements Runnable {
+public class DisplayScreen extends Form implements Runnable {
 
-	private static final int DELAY = 10000; // Ten second delay
+	private static final int DELAY = 5000; // five second delay
+
 	private boolean running;
 
-	// I removed the location and time String items.
-	private StringItem statusItem, resultItem;
+	private StringItem statusItem, directions;
+
 	private String status;
+
 	private TextField destinationAddress;
+
 	private Location location;
+
 	private SimpleLoc currentLoc;
 
-	public AppController() {
+	public DisplayScreen() {
 		super("Rapid Rider");
 		running = false;
 		status = "";
 		destinationAddress = new TextField("Destination: ", "", 50,
 				TextField.ANY);
 		statusItem = new StringItem("Status: ", "");
-		resultItem = new StringItem("Result: ", "");
 
-		// I presume this represents Calvin College.
-		// TODO Is that correct?
-		// And.. maybe this should be connected to the actual current
-		// location from the GPS
-		currentLoc = new SimpleLoc(42.927, -85.5903);
+		currentLoc = new SimpleLoc(location.getQualifiedCoordinates()
+				.getLatitude(), location.getQualifiedCoordinates()
+				.getLongitude());
 
 		append(statusItem);
 		append(destinationAddress);
-		// Rename: ?
-		append(resultItem);
+		append(directions);
 	}
 
 	// This is used by the GPS device.
@@ -59,9 +57,6 @@ public class AppController extends Form implements Runnable {
 			currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
 			currentLoc
 					.setLon(location.getQualifiedCoordinates().getLongitude());
-			// locationString.setText(currentLoc.printLoc());
-			// currentDate = new Date(location.getTimestamp());
-			// timeString.setText("(" + currentDate.toString() + ")");
 		}
 		statusItem.setText(status);
 	}
@@ -85,7 +80,6 @@ public class AppController extends Form implements Runnable {
 	}
 
 	// Get the current location of the GPS.
-	// TODO Really? The AppController / Screen thing knows this?
 	// Should this be synchronized?
 	public SimpleLoc getCurrentLocation() {
 		return currentLoc;
@@ -93,9 +87,8 @@ public class AppController extends Form implements Runnable {
 
 	// Show the directions on the screen.
 	// Should this be synchronized?
-	// I think YES TODO
-	public void setDirections(String directions) {
-		resultItem.setText(directions);
+	public void setDirections(String d) {
+		directions.setText(d);
 	}
 
 	// Run like the wind!

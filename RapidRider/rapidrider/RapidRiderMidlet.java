@@ -8,7 +8,7 @@ import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 // The main Midlet class for the RapidRider application.
-public class GPSMidlet extends MIDlet implements CommandListener {
+public class RapidRiderMidlet extends MIDlet implements CommandListener {
 
 	// The command buttons for the GUI.
 	private Command cmdExit, cmdPause, cmdRestart;
@@ -16,14 +16,13 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	// An object that allows us to communicate with the GPS
 	private GPSDevice device;
 	// I don't need to comment all of this..
-	private AppController screen;
+	private DisplayScreen screen;
 	private Command cmdGetRoute;
 	private DirectionsFetcher fetcher;
 
 	// Construct a new RapidRider midlet.
-	// TODO: Yes, this should be renamed.
-	public GPSMidlet() {
-		screen = new AppController();
+	public RapidRiderMidlet() {
+		screen = new DisplayScreen();
 		cmdExit = new Command("Exit", Command.EXIT, 1);
 		cmdPause = new Command("Pause", Command.ITEM, 1);
 		cmdRestart = new Command("Restart", Command.ITEM, 1);
@@ -55,6 +54,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	protected void pauseApp() {
 		screen.stop();
 		device.stop();
+		screen.setStatus("Paused...");
 		screen.removeCommand(cmdPause);
 		screen.removeCommand(cmdGetRoute);
 		screen.addCommand(cmdRestart);
@@ -64,6 +64,7 @@ public class GPSMidlet extends MIDlet implements CommandListener {
 	protected void restartApp() {
 		screen.start();
 		device.start();
+		screen.setStatus("Connecting...");
 		screen.removeCommand(cmdRestart);
 		screen.addCommand(cmdPause);
 		screen.addCommand(cmdGetRoute);
