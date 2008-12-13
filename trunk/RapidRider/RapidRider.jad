@@ -1,7 +1,7 @@
-MIDlet-Version: 1.0.22
+MIDlet-Version: 1.0.23
 MIDlet-Vendor: Midlet Suite Vendor
 MIDlet-Jar-URL: RapidRider.jar
 MicroEdition-Configuration: CLDC-1.1
 MicroEdition-Profile: MIDP-2.0
-MIDlet-1: Rapid Rider,,rapidrider.GPSMidlet
+MIDlet-1: RapidRider,,rapidrider.RapidRiderMidlet
 MIDlet-Name: RapidRider Midlet Suite
