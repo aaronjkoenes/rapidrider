@@ -1,62 +1,47 @@
 package rapidrider;
 
+// This class represents a bus stop.
 public class BusStop {
 
-	private SimpleLoc myLoc;
-	private String id;
-	private String myName;
+	private SimpleLoc location;
+	private String name;
 
-	public BusStop() {
-		myLoc = new SimpleLoc();
-	}
-	
-	public BusStop(SimpleLoc loc, String name) {
-		myLoc = loc;
-		myName = name;
+	// TODO Should this also know its bus route? And a time??? Or should that
+	// be another class?
+
+	// But, for now, since we are on the client side. I suppose I will allow
+	// a constructor that only takes a name.
+	public BusStop(String _name) {
+		// Let's explicitely leave location null. Maybe bad idea.
+		location = null;
+		name = _name;
 	}
 
+	// Create a new bus stop given a location and a name.
+	public BusStop(SimpleLoc loc, String _name) {
+		location = loc;
+		name = _name;
+	}
+
+	// Too many accessors?
 	public SimpleLoc getLoc() {
-		return myLoc;
-	}
-	
-	public void setId(String _id) {
-		id = _id;
-	}
-
-	public String getId() {
-		return id;
-	}
-	
-	public void setName(String _name) {
-		myName = _name;
-	}
-
-	public String getName() {
-		return myName;
-	}
-
-	public void setLatitude(String _latitude) {
-		myLoc.setLat(Double.parseDouble(_latitude));
+		return location;
 	}
 
 	public double getLatitude() {
-		return myLoc.getLat();
+		return location.getLat();
 	}
-	
-	public void setLongitude(String _longitude) {
-		myLoc.setLon(Double.parseDouble(_longitude));
-	}
-	
 
 	public double getLongitude() {
-		return myLoc.getLon();
+		return location.getLon();
 	}
-	
-	public String printLoc() {
-		return myLoc.printLoc();
+
+	// This isn't used right now.
+	public String getName() {
+		return name;
 	}
-	
+
 	public String toString() {
-		return myName + " " + id + myLoc.toString();
+		return name;
 	}
 }
