@@ -60,6 +60,14 @@ We started each user test by explaining the purpose of our application and littl
   * Was pleased with the directions to the destination he chose that is near East Town.
   * Wished there were more labels on the directions, including time and route numbers.
 
+== User #9 ==
+  * Wasn't familiar with Palms and had some trouble entering letters and numbers.
+  * Wanted to get to Wealthy street station.
+  * Couldn't enter the letter "f" at all.
+  * Asked if the application should be allowed to use airtime.
+  * Thought the results were mislabeled as "Nearest Location."
+  * Wanted to know if the application could handle transfers.
+
 = Things Learned =
   * We should implement more routes.
   * "Pause" should change the "Status" to "paused"
