@@ -8,41 +8,65 @@ We started each user test by explaining the purpose of our application and littl
 = Details for each test =
 
 == User #1 ==
+  * Suggested that we change the settings in the palm so that it doesn't ask about connecting to the GPS.
+
+== User #2 ==
   * Didn't understand what "Pause" was for.
   * Was confused on how to enter a destination.
   * Would have liked to see a drop-down list of bus stops.
   * Typed in "mall" and got back "Claystone & East Beltline" for a arrival stop.
   * Wants to see the stops labeled ("Start Stop", "End Stop").
   * Had a lot of trouble typing in the on-screen keyboard.
-  * Typed their address and got back "Fuller & Leonard", this is not the closest stop (this is due to lack of routes in the database).
+  * Typed their address and got back "Fuller & Leonard", this is not the closest stop. (This is due to lack of routes in the database).
   * When the Palm went to sleep, it froze the application.
   * Said they would use it, if they rode the bus.
 
-== User #2 ==
+== User #3 ==
   * When trying to type a "w" in portrait mode they would end up clicking "Exit" (Palm has a broken screen).
   * Was confused by the two stops that were given back. "Which do I go to?"
   * "woodland mall" -> "Ottawa & Fulton" (way wrong).
-  * Felt landscape mode helped.
-  * Felt the Exit button was too close to the on-screen keyboard.
-
-== User #3 ==
-  * Moved closer to GPS Device to get it to connect.
-  * Felt the results need labels.
-  * Wanted a way to reset the input field.
-  * Had trouble typing while it connected to the GPS Device.
-  * "calvin collegee" -> "Raybrook & Burton".
+  * Felt that landscape mode helped.
+  * Felt that there should be a "buffer" between the Exit button and the on-screen keyboard.
 
 == User #4 ==
+  * Had to move closer to GPS Device to get it to connect.
+  * Felt the results need labels ("Get on", "Get off").
+  * Wanted a way to reset the input field.
+  * Had trouble typing while the Palm was connecting to the GPS Device.
+  * "calvin college" -> "Raybrook & Burton".
+
+== User #5 ==
   * Typed in "museum" and pressed return on the on-screen keyboard. This inserted a return in the field. Then tapped "Get Route" and received an XML parsing error.
-  * Removed the return and tapped "Get Route". This resulted in just "Ottawa and Fulton" being displayed along with the error from before.
-  * Didn't know what it was doing when the application was restarted. (it was connecting to the GPS Device).
+  * Removed the return character and tapped "Get Route". This resulted in just "Ottawa and Fulton" being displayed along with the error from before.
+  * Didn't know what the application was doing when it was restarted. (It was connecting to the GPS Device).
+  * Would like to know the "bus number" and the time to be at the bus stop.
+
+== User #6 ==
+  * Thought that it was cool that you could simple type "woodland mall" and the application would know where that is.
+  * Would like the application if it had more data.
+  * Tried to tapping the screen to wake the Palm up after it went to sleep.
+  * "celebration north" -> "Wealthy & Lakeside"
+
+== User #7 ==
+  * Didn't know how to enter numbers in the palm.
+  * Got "Ottawa & Pearl" when he tried to get directions to his house.
+  * Thought entering text was too slow of a process.
+
+== User #8 ==
+  * Thought that the default application icon (the blue one with the stylus) looked boring.
+  * Had trouble entering an "f".
+  * Tapped the clock when he wanted to enter numbers.
+  * Entered landscape mode successfully after studying the icons.
+  * Was pleased with the directions to the destination he chose that is near East Town.
+  * Wished there were more labels on the directions, including time and route numbers.
 
 = Things Learned =
-  * Implement more routes.
+  * We should implement more routes.
   * "Pause" should change the "Status" to "paused"
   * While the application is connecting to the GPS Device it should change the status to "connecting..."
   * Label "Start Stop" and "End Stop"
   * Find a solution to prevent the Palm from freezing when it goes to sleep while the application is running.
-  * When a destination is not found it defaults to "Ottawa & Pearl", how can we fix this?
+  * When a destination is not found it defaults to "Ottawa & Pearl."  How can we fix this?
   * Add a "Clear" button to clear the destination input field.
-  * Remove returns when they are input into the destination field. Or capture them to run "Get Route".
+  * Remove return characters when they are input into the destination field.  Or capture them to run "Get Route".
+  * Include route numbers in the output.  Stop times would be nice too.
