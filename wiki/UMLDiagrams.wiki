@@ -2,7 +2,7 @@
 
 == UML File ==
 
-The RapidRider UML file is the in the repository: [http://rapidrider.googlecode.com/svn/trunk/RapidRider/uml/RapidRider.uml Download]
+The !RapidRider UML file is the in the repository: [http://rapidrider.googlecode.com/svn/trunk/RapidRider/uml/RapidRider.uml Download]
 
 == Use Case Diagram ==
 
