@@ -21,10 +21,12 @@ public class Directions {
 	// But, as we learned from the user tests, it should include more info.
 	public String toString() {
 		String s = "";
-		for (int i = 0; i < stops.size(); i++) {
-			// toString on BusStops just returns their name right now.
-			s += stops.elementAt(i).toString() + "\n";
+		s += "Get on at: " + stops.firstElement().toString();
+		for (int i = 1; i < (stops.size() - 1); i++) {
+			s += "Transfer at: " + stops.elementAt(i).toString() + "\n";
 		}
+		s += "Get off at: " + stops.lastElement().toString();
 		return s;
 	}
+	
 }
