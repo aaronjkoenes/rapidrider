@@ -1,72 +1,69 @@
 package rapidrider;
 
-
-import java.util.Date;
-
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
 import javax.microedition.lcdui.TextField;
 
 import ext.javax.microedition.location.Location;
 
+// The main screen.
+// Should this be renamed?  I think so..
 public class AppController extends Form implements Runnable {
 
-	private static final int DELAY = 10000;  // Ten second delay
+	private static final int DELAY = 10000; // Ten second delay
 	private boolean running;
-	private StringItem locationString, timeString, statusString, allStops, nearestToDest;
-	private TextField destinationAddress;
-	String URL = "";
-	int targetLat = 0, targetLon = 0;
-	private Location location;
+
+	// I removed the location and time String items.
+	private StringItem statusItem, resultItem;
 	private String status;
+	private TextField destinationAddress;
+	private Location location;
 	private SimpleLoc currentLoc;
-	private Date currentDate;
-	private BusRoute route;
 
 	public AppController() {
 		super("Rapid Rider");
 		running = false;
 		status = "";
-		locationString = new StringItem("Location: ", "");
-		destinationAddress = new TextField("Destination: ", "", 50, TextField.ANY);
-		timeString = new StringItem("Time: ", "");
-		statusString = new StringItem("Status: ", "");
-		allStops = new StringItem("Nearest Location: ", "");
-		nearestToDest = new StringItem("Nearest to Destination: ", "");
+		destinationAddress = new TextField("Destination: ", "", 50,
+				TextField.ANY);
+		statusItem = new StringItem("Status: ", "");
+		resultItem = new StringItem("Result: ", "");
 
-		route = new BusRoute("Testing Route");
-
+		// I presume this represents Calvin College.
+		// TODO Is that correct?
+		// And.. maybe this should be connected to the actual current
+		// location from the GPS
 		currentLoc = new SimpleLoc(42.927, -85.5903);
 
-//		append(locationString);
-//		append(timeString);
-		append(statusString);
+		append(statusItem);
 		append(destinationAddress);
-		append(allStops);
+		// Rename: ?
+		append(resultItem);
 	}
 
-	public BusRoute getRoute () {
-		return route;
-	}
-	
+	// This is used by the GPS device.
 	public synchronized void setStatus(String s) {
 		status = s;
 	}
 
+	// This is used by the GPS device.
 	public synchronized void setLocation(Location l) {
 		location = l;
 	}
 
+	// Update the display... and what?
+	// Question: when is this called?
+	// Answer: Constantly, with a delay of DELAY between the calls.
 	private void updateDisplay() {
 		if (location != null) {
-			 currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
-			 currentLoc.setLon(location.getQualifiedCoordinates().getLongitude());
-//			locationString.setText(currentLoc.printLoc());
-//			currentDate = new Date(location.getTimestamp());
-//			timeString.setText("(" + currentDate.toString() + ")");
+			currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
+			currentLoc
+					.setLon(location.getQualifiedCoordinates().getLongitude());
+			// locationString.setText(currentLoc.printLoc());
+			// currentDate = new Date(location.getTimestamp());
+			// timeString.setText("(" + currentDate.toString() + ")");
 		}
-
-		statusString.setText(status);
+		statusItem.setText(status);
 	}
 
 	// Creates a new thread and starts the run() method of this class in that
@@ -77,71 +74,32 @@ public class AppController extends Form implements Runnable {
 		t.start(); // Automatically calls run().
 	}
 
+	// Stop the screen?
 	public void stop() {
 		running = false;
 	}
-	
+
+	// Get the address that the user wants to destine to.
 	public String getDestinationAddress() {
 		return destinationAddress.getString();
 	}
 
+	// Get the current location of the GPS.
+	// TODO Really? The AppController / Screen thing knows this?
+	// Should this be synchronized?
 	public SimpleLoc getCurrentLocation() {
 		return currentLoc;
 	}
-	
-	public void setNearestLoc(String s) {
-		allStops.setText(s);
+
+	// Show the directions on the screen.
+	// Should this be synchronized?
+	// I think YES TODO
+	public void setDirections(String directions) {
+		resultItem.setText(directions);
 	}
-	
-	public void setNearestDestLoc(String s)  {
-		System.out.println("Setting text to: " + s);
-		nearestToDest.setText(s);
-	}
-	
-	public void setStopList(String s) {
-		allStops.setText(s);
-	}
-	
-	/*
-	public void findNearest() {
-		int nearestLocIndex = 0;
-		double distance = 0.0;
-		double shortest = -1.0;
-		System.out.println(route.listStops());
-		int length = route.routeLength();
-		for (int i = 0; i < length; i++) {
-			distance = currentLoc.distanceTo(new SimpleLoc(route.getstop(i).getLatitude(),route.getstop(i).getLongitude()));
-			if (shortest > distance || shortest < 0) {
-				shortest = distance;
-				nearestLocIndex = i;
-			}
-		}
-		nearestLocation.setText(route.getstop(nearestLocIndex).getName());
-	}
-	
-	public void findNearest(SimpleLoc l) {
-		int nearestLocIndex = 0;
-		double distance = 0.0;
-		double shortest = -1.0;
-		System.out.println(route.listStops());
-		int length = route.routeLength();
-		for (int i = 0; i < length; i++) {
-			double locationLat = route.getstop(i).getLatitude();
-			double locationLon = route.getstop(i).getLongitude();
-			SimpleLoc location = new SimpleLoc(locationLat, locationLon);
-			distance = l.distanceTo(location);
-			System.out.print("Distance found: " + distance);
-			if (shortest > distance || shortest < 0) {
-				System.out.println(".  Shorter.  Setting to " + route.getstop(i).getName());
-				shortest = distance;
-				nearestLocIndex = i;
-			} else {
-				System.out.println();
-			}
-		}
-		nearestToDest.setText(route.getstop(nearestLocIndex).getName());
-	}
-	*/
+
+	// Run like the wind!
+	// TODO Actually, a nice description here would be really nice!
 	public void run() {
 		while (running) {
 			synchronized (this) {

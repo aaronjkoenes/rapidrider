@@ -1,50 +1,43 @@
 package rapidrider;
 
+// Represents a simple location, storing a latitude and a longitude.
 public class SimpleLoc {
-	
-	private double myLat;
-	private double myLon;
 
-	public SimpleLoc() {
-		myLat = Double.NaN;
-		myLon = Double.NaN;
-	}
+	private double latitude, longitude;
 
 	public SimpleLoc(double lat, double lon) {
-		myLat = lat;
-		myLon = lon;
+		latitude = lat;
+		longitude = lon;
 	}
 
 	public double getLat() {
-		return myLat;
+		return latitude;
 	}
 
 	public double getLon() {
-		return myLon;
+		return longitude;
 	}
 
 	public void setLat(double lat) {
-		myLat = lat;
+		latitude = lat;
 	}
 
 	public void setLon(double lon) {
-		myLon = lon;
+		longitude = lon;
 	}
 
 	public String printLoc() {
-		return String.valueOf(myLat) + ", " + String.valueOf(myLon);
+		return latitude + ", " + longitude;
 	}
 
-	// This function doesn't look correct to me.  TODO test.
+	// I swear Brett and I already fixed this...
+	// That's the beauty of having the same class in two different projects...
+	// TODO test.
 	public double distanceTo(SimpleLoc tar) {
-		double latDif = Math.abs(myLat) - Math.abs(tar.getLat() );
-		double lonDif = Math.abs(myLon) - Math.abs(tar.getLon() );
-		System.out.println(myLat + " " + myLon + " " + latDif + " " + 
-				lonDif + " " + latDif * latDif + " " + lonDif * lonDif );
-		double dist = Math.sqrt( 
-			 ( (Math.abs(myLat) - Math.abs(tar.getLat()) ) * ( Math.abs(myLat) - Math.abs(tar.getLat()) ) ) +
-			 ( (Math.abs(myLon) - Math.abs(tar.getLon()) ) * ( Math.abs(myLon) - Math.abs(tar.getLon()) ) )
-			 );
-		return dist;
+		double latitudeDifference = latitude - tar.getLat();
+		double longitudeDifference = longitude - tar.getLon();
+		return Math.sqrt(latitudeDifference * latitudeDifference
+				+ longitudeDifference * longitudeDifference);
 	}
+
 }
