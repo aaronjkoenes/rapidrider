@@ -21,11 +21,11 @@ public class Directions {
 	// But, as we learned from the user tests, it should include more info.
 	public String toString() {
 		String s = "";
-		s += "Get on at: " + stops.firstElement().toString();
+		s += "Get on at: " + stops.firstElement().toString().trim() + "\n";
 		for (int i = 1; i < (stops.size() - 1); i++) {
-			s += "Transfer at: " + stops.elementAt(i).toString() + "\n";
+			s += "Transfer at: " + stops.elementAt(i).toString().trim() + "\n";
 		}
-		s += "Get off at: " + stops.lastElement().toString();
+		s += "Get off at: " + stops.lastElement().toString().trim();
 		return s;
 	}
 	
