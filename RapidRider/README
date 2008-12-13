@@ -2,6 +2,14 @@ RapidRider CS 262 Project
     http://code.google.com/p/rapidrider/
 
 
+This file contains instructions for:
+  * Setting up the RapidRider project in Eclipse.
+  * Installing the RapidRider midlet on a Palm device.
+  
+NOTE: Instructions for setting up a RapidRider server can be found in the README
+for the server project.
+
+
 Setup Eclipse with a RapidRider project:
 
   A simple 12 step process to get you up and running in an amount of time that
@@ -17,6 +25,9 @@ Setup Eclipse with a RapidRider project:
      Calvin's mirror at:
      
   http://mirror.calvin.edu/eclipse/downloads/drops/R-3.2-200606291905/index.php
+
+     NOTE: Calvin's mirror is down right now.  You will have to find somewhere 
+     else to download Eclipse 3.2 from.
 
   2. Install WTK.  In the lab we are using 2.5 Beta, but it was only released
      for Windows, and WTK 2.5.2 works fine.  It can be found at:
@@ -49,8 +60,8 @@ Setup Eclipse with a RapidRider project:
   
   http://sourceforge.net/project/showfiles.php?group_id=86829&package_id=90314
 
-     Extract this zip file, and then tell Eclipse to use the extracted 
-     directory as a local update site.
+     Extract this zip file, and then tell Eclipse to use the extracted directory
+     as a local update site.
   
   6. Check out the RapidRider source code with Subclipse.  The location of the 
      Google Code repository is:
@@ -90,20 +101,64 @@ Setup Eclipse with a RapidRider project:
   12. If you get stuck or have any questions feel free to contact Greg Clark.
 
 
-The RapidRider work cycle:
-  
-  TODO: Would it be good to go over the basics of using subversion and working
-        as a team?
+Deploy RapidRider to a real Palm device:
 
+  NOTE:  These instructions are probably incomplete.  I would appreciate it
+     if other people would fill in some of the details.
 
-Deploy RapidRider to a real device:
+  0. Get a Palm device.  We are using the Palm TX.  Sometimes it is necessary to
+     do a hard rest on the Palm device.  If the Palm does not need to be hard 
+     reset, skip to step N.
   
-  TODO: Include instructions for this?
+  1. Hard reset the Palm.  Hold down the power button and press the reset button
+     on the back with the stylus.  Keep holding the power button until you see
+     the silver Palm Powered icon.  Then press up and tell the Palm to erase all
+     of its data.
+     
+  2. Install Palm Desktop onto your computer.  This can be found at:
+  
+  http://www.palm.com/us/support/palmdesktop.html
+  
+  3. Install Java onto the Palm device.  The IBM WEME J9 Java micro edition 
+     virtual machine can be found at:
+  
+  http://cs.calvin.edu/curriculum/cs/262/kvlinden/resources/WEME571.zip
+     
+     Unzip this file and use Palm Desktop to install it onto your Palm.
+  
+  4. Install the RapidRider midlet on the Palm.  Go into the IBM virtual machine
+     on the Palm.  Tap Install and enter the URL for either the .jad or the .jar
+     file.  Skip to step 8 if you just installed RapidRider to your Palm for the
+     first time.
+
+  5. Update the midlet version number.  Make sure the .jad file's version number
+     is larger than it was last time it was installed on the Palm device.
+     
+  6. Recreate a midlet property.  In the .jad file, select the Midlet tab in 
+     Eclipse.  Apparently, it is necessary delete and then recreate the one 
+     entry in this property.  I don't know why this is necessary.  The property
+     should have name "RapidRider", and the class should be 
+     "rapidrider.RapidRiderMidlet".
+     
+     Currently, the RapidRider midlet does not have an icon. 
+
+  7. Update the RapidRider midlet on the Palm.
+  
+  8. Use the landscape view.  Some of the Palm devices we have in the lab have 
+     unusable sections on their screens.  Using landscape mode, instead of
+     portrait mode, makes it easier to use the Palm in general.
+     
+  9. Set settings on the Palm.  Changing some settings on the Palm stops the
+     Palm from asking whether or not it is allowed to connect to the GPS and to
+     the server so frequently.
+  
+  10. Start the RapidRider application.  In the application menu, select the
+     RapidRider Midlet Suite.
   
 
 Install StarUML in Linux:
 
-  With some effort, this is possible.
-  
-  TODO: Should I write instructions here?
+  With some effort, this is possible.  I got it to work using Wine and copying 
+  over one extra .dll file for parsing XML.  If you have any questions about 
+  this contact Greg Clark.
   
