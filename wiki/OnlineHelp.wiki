@@ -10,7 +10,7 @@
   * Browse to this location: _unzip location_\WEME571JVM\JVM\ARM4T.
   * Open the Palm Desktop software and click "Quick Install".
   * Drag or Add "J9JavaVMMidp20" into the Palm install list.
-  * HotSync the Palm.
+  * !HotSync the Palm.
 
 === Installing Rapidrider ===
   * Open "IBM Java VM" on the Palm Device.
@@ -18,7 +18,7 @@
 
 == Using the Application ==
   * Start "IBM Java VM" on Palm Device, click on "Rapid Rider..." in the Launcher (and skip the next step)
-  * In the "Midlet List" of the IBM Java VM app, select the "RapidRider Midlet Suite" and click launch.
+  * In the "Midlet List" of the IBM Java VM app, select the "!RapidRider Midlet Suite" and click launch.
   * Answer Yes to the User Permission Check to allow bluetooth connections, then select your GPS and connect to it.  You will now see the main screen, and after your location has bee acquired the *Status:* will display "connected..."
   * Enter your *Destination* address into the appropriate field; Please note that "Grand Rapids, MI" is implied and _should not be added_.  The Palm T|X is notorious for digitizer problems; if you experience difficulty entering text try rotating the screen by choosing the icon at the bottom of the screen, second-from-the-right.
   * Now click on the *Get Route* button.  The Palm will again prompt you with a User Permission Check, answer yes.  This is for allowing the Palm to connect to the internet, which is required.
