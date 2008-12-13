@@ -16,7 +16,7 @@ public class DirectionsFetcherTest extends TestCase {
 	private DirectionsFetcher fetcher;
 
 	public void setUp() {
-		// The null is annoying.
+		// This null is annoying.
 		fetcher = new DirectionsFetcher(null);
 	}
 
