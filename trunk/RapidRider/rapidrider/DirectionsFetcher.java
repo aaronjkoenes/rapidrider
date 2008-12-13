@@ -10,32 +10,38 @@ import org.kxml2.io.KXmlParser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+/**
+ * The DirectionsFetcher class fetches directions from the RapidRider server.
+ * 
+ * @author gjc3
+ */
 public class DirectionsFetcher implements Runnable {
 
 	private static String URL = "http://153.106.117.64:8080/rapidRiderServlet/RapidRider";
+
 	// private static String URL =
 	// "http://localhost:8080/rapidRiderServlet/RapidRider";
 
 	private String targetURL;
+
 	private DisplayScreen screen;
 
-	// Construct a directions fetcher.
-	// It uses the given screen to get the destination and current location
-	// when it is time to fetch directions.
+	/**
+	 * Constructs a directions fetcher. It uses the given screen to get the
+	 * destination and current location when it is time to fetch directions.
+	 */
 	public DirectionsFetcher(DisplayScreen _screen) {
 		screen = _screen;
 	}
 
-	// Start a thread to fetch directions from the starting location to the
-	// ending location.
+	/**
+	 * Starts a thread to fetch directions from the starting location to the
+	 * ending location.
+	 */
 	public void fetchDirections() {
-		// These were going to be parameters, but now they don't have to be.
 		String destination = screen.getDestinationAddress();
 		SimpleLoc currentLocation = screen.getCurrentLocation();
 
-		// What a long and awkward line..
-		// ShoULd this be done in the thread?
-		// It could be.
 		targetURL = URL
 				+ "?address="
 				+ replaceSpaces(destination + " Grand Rapids, MI" + "&lat="
@@ -43,23 +49,26 @@ public class DirectionsFetcher implements Runnable {
 						+ currentLocation.getLon());
 		System.out.println("URL:  " + targetURL);
 
-		// Threads can't really be recycled very easily as far as I understand.
-		// So, we make a new one each time we want to fetch some server stuff.
-		// This basically just calls run() in a new thread.
+		// Create a new thread and request directions from the server with it.
 		new Thread(this).start();
 	}
 
-	// Start the thread.
+	/**
+	 * Starts the thread that will request directions from the server.
+	 */
 	public void run() {
 		requestDirectionsFromServer();
 	}
 
+	/**
+	 * Sends an HTTP request to the server and parse the result.
+	 */
 	private void requestDirectionsFromServer() {
 		try {
+			// Create an HTTP connection to the target URL and start parsing the
+			// response.
 			HttpConnection conn = (HttpConnection) Connector.open(targetURL);
-
 			KXmlParser parser = new KXmlParser();
-
 			Directions directions = new Directions();
 
 			// Get the result and check that it starts with the right tag.
@@ -67,11 +76,8 @@ public class DirectionsFetcher implements Runnable {
 			parser.nextTag();
 			parser.require(XmlPullParser.START_TAG, null, "rapidrider");
 
-			// Is this really all that is supposed to be in this while loop?
-			// I need my brackets.
-			// What does it do?
+			// Add each bus stop in the XML response to the directions.
 			while (parser.nextTag() != XmlPullParser.END_TAG) {
-				// The next tag better be a bus stop tag.
 				directions.addStop(parseBusStopTag(parser));
 			}
 
@@ -79,46 +85,42 @@ public class DirectionsFetcher implements Runnable {
 			parser.next();
 			parser.require(XmlPullParser.END_DOCUMENT, null, null);
 
+			// Update the screen with the received directions.
 			screen.setDirections(directions.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			// OR, it could call something like screen.setError().
+			// Tell the user that an error has occured.
 			screen.setDirections("Error: " + e.toString());
 		}
 	}
 
-	// This should be private, but it should also be tested.
-	// Expects a busstop tag to be next up in the given parser.
+	/**
+	 * Extracts a BusStop object from the XML data that is being parsed.
+	 */
 	public BusStop parseBusStopTag(KXmlParser parser) throws IOException,
 			XmlPullParserException {
 
-		// explain this TODO
+		// The next tag that the parser sees must be a <busstop> tag.
 		parser.require(XmlPullParser.START_TAG, null, "busstop");
 
 		String busStopName = "";
 
-		// This shouldn't be a loop, should it?
-		// Does this really have to be here at all?
+		// Given well formed XML, this loop will be executed exactly once.
 		while (parser.nextTag() != XmlPullParser.END_TAG) {
 			parser.require(XmlPullParser.START_TAG, null, null);
-			// What is the difference between getName() and nextText() ?
-			// Notice that KXML parser basically has no documentation.
 			String tagName = parser.getName();
 			busStopName = parser.nextText();
 			parser.require(XmlPullParser.END_TAG, null, tagName);
 		}
 		parser.require(XmlPullParser.END_TAG, null, "busstop");
 
-		// It would be nice to have a location to pass along too...
-		// And maybe a bus route number...
-		// And maybe a time too...
-		// Really. We could do that.
+		// Creat a BusStop object from the name in the XML.
 		return new BusStop(busStopName);
 	}
 
-	// Replace the spaces in a string with %20s.
-	// I think this could be simplified quite a bit.
-	// TODO test.
+	/**
+	 * Replaces the spaces in a string with %20s.
+	 */
 	public String replaceSpaces(String s) {
 		String Result = "";
 		for (int i = 0; i < s.length(); i++) {
