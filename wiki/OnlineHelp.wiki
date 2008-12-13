@@ -5,7 +5,7 @@
 
 === Installing the Mobile Virtual Machine ===
   * First, install the [http://www.palm.com/us/support/palmdesktop.html Palm Desktop] software.
-  * Then, download the [http://cs.calvin.edu/curriculum/cs/262/kvlinden/resources/WEME571.zip * IBM WEME J9 (J2ME JVM)].
+  * Then, download the [http://cs.calvin.edu/curriculum/cs/262/kvlinden/resources/WEME571.zip IBM WEME J9 (J2ME JVM)].
   * Unzip, the download to where ever you feel comfortable.
   * Browse to this location: _unzip location_\WEME571JVM\JVM\ARM4T.
   * Open the Palm Desktop software and click "Quick Install".
