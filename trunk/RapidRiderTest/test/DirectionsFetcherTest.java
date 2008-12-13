@@ -40,4 +40,13 @@ public class DirectionsFetcherTest extends TestCase {
 			fail();
 		}
 	}
+
+	public void testReplaceSpaces() {
+		assertEquals("%20east%20town%20%20Grand%20Rapids,%20MI", fetcher
+				.replaceSpaces(" east town  Grand Rapids, MI"));
+		assertEquals("ottawa%20high%20school%20Grand%20Rapids,%20MI", fetcher
+				.replaceSpaces("ottawa high school Grand Rapids, MI"));
+		assertEquals("woodland%20mall%20Grand%20Rapids,%20MI", fetcher
+				.replaceSpaces("woodland mall Grand Rapids, MI"));
+	}
 }
