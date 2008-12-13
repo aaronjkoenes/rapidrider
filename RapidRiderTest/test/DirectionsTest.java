@@ -13,8 +13,8 @@ public class DirectionsTest extends TestCase {
 				"Calvin College & Burton"));
 		directions.addStop(new BusStop(new SimpleLoc(42.962, -85.632),
 				"Fulton & Fuller"));
-		assertEquals("Calvin College & Burton\nFulton & Fuller\n", directions
-				.toString());
+		assertEquals("Get on at: Calvin College & Burton\n"
+				+ "Get off at: Fulton & Fuller", directions.toString());
 	}
 
 }
