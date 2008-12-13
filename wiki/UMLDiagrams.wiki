@@ -1,5 +1,9 @@
 #summary This is a page of UML diagrams used for our project.
 
+== UML File ==
+
+The RapidRider UML file is the in the repository: [http://rapidrider.googlecode.com/svn/trunk/RapidRider/uml/RapidRider.uml Download]
+
 == Use Case Diagram ==
 
 <a href="http://picasaweb.google.com/lh/photo/hjDjVDFotanifp6ACFaqnQ"><img src="http://lh5.ggpht.com/_OVtp2MZB6DQ/STb1Ol7EX4I/AAAAAAAAAGg/nCiji9Ipt4k/s800/usecase.jpg" /></a>
