@@ -96,6 +96,11 @@ public class DirectionsFetcher implements Runnable {
 
 	/**
 	 * Extracts a BusStop object from the XML data that is being parsed.
+	 * 
+	 * @param parser
+	 *            The parser that knows the XML with the bus stop in it.
+	 * 
+	 * @return BusStop
 	 */
 	public BusStop parseBusStopTag(KXmlParser parser) throws IOException,
 			XmlPullParserException {
@@ -120,6 +125,11 @@ public class DirectionsFetcher implements Runnable {
 
 	/**
 	 * Replaces the spaces in a string with %20s.
+	 * 
+	 * @param s
+	 *            The string that will be used as part of a URL.
+	 * 
+	 * @return String
 	 */
 	public String replaceSpaces(String s) {
 		String Result = "";

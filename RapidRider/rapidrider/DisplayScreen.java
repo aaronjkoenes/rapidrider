@@ -6,6 +6,9 @@ import javax.microedition.lcdui.TextField;
 
 import ext.javax.microedition.location.Location;
 
+/**
+ * The DisplayScreen class is the main Form for the RapidRider midlet.
+ */
 public class DisplayScreen extends Form implements Runnable {
 
 	private static final int DELAY = 5000; // Five second delay
@@ -22,6 +25,9 @@ public class DisplayScreen extends Form implements Runnable {
 
 	private SimpleLoc currentLoc;
 
+	/**
+	 * Constructs a display screen.
+	 */
 	public DisplayScreen() {
 		super("Rapid Rider");
 		running = false;
@@ -38,19 +44,36 @@ public class DisplayScreen extends Form implements Runnable {
 		append(directions);
 	}
 
-	// This is used by the GPS device.
+	/**
+	 * Sets the status of the midlet for the user to see once the display is
+	 * updated
+	 * 
+	 * This is used by the GPS device.
+	 * 
+	 * @param s
+	 *            The status
+	 */
 	public synchronized void setStatus(String s) {
 		status = s;
 	}
 
-	// This is used by the GPS device.
+	/**
+	 * Sets the location for the user to see once the display is updated
+	 * 
+	 * This is used by the GPS device.
+	 * 
+	 * @param l
+	 *            The location
+	 */
 	public synchronized void setLocation(Location l) {
 		location = l;
 	}
 
-	// This method is constantly called with a delay of DELAY between the calls.
-	// It updates currentLoc according to the GPS device's location and updates
-	// the display.
+	/**
+	 * Updates the display of the midlet application.
+	 * 
+	 * This method is constantly called with a delay of DELAY between each call.
+	 */
 	private void updateDisplay() {
 		if (location != null) {
 			currentLoc.setLat(location.getQualifiedCoordinates().getLatitude());
@@ -60,38 +83,55 @@ public class DisplayScreen extends Form implements Runnable {
 		statusItem.setText(status);
 	}
 
-	// Creates a new thread and starts the run() method of this class in that
-	// thread.
+	/**
+	 * Creates a new thread and starts the run() method of this class in that
+	 * thread.
+	 */
 	public void start() {
 		running = true;
 		Thread t = new Thread(this);
 		t.start(); // Automatically calls run().
 	}
 
-	// Stop the screen?
+	/**
+	 * Stops the screen from updating itself.
+	 */
 	public void stop() {
 		running = false;
 	}
 
-	// Get the address that the user wants to destine to.
+	/**
+	 * Returns the address that the user has entered.
+	 * 
+	 * @return String
+	 */
 	public String getDestinationAddress() {
 		return destinationAddress.getString();
 	}
 
-	// Get the current location of the GPS.
-	// Should this be synchronized?
+	/**
+	 * Returns the current location of the GPS device.
+	 * 
+	 * @return SimpleLoc
+	 */
 	public SimpleLoc getCurrentLocation() {
 		return currentLoc;
 	}
 
-	// Show the directions on the screen.
-	// Should this be synchronized?
+	/**
+	 * Set the directions that show up on the screen.
+	 * 
+	 * @param d
+	 *            A String representation of the directions.
+	 */
 	public void setDirections(String d) {
 		directions.setText(d);
 	}
 
-	// Run like the wind!
-	// TODO Actually, a nice description here would be really nice!
+	/**
+	 * In a thread, continually updates the display, with a delay of DELAY
+	 * between each update.
+	 */
 	public void run() {
 		while (running) {
 			synchronized (this) {
