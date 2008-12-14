@@ -8,7 +8,10 @@ We started each user test by explaining the purpose of our application and littl
 = Details for each test =
 
 == User #1 ==
-  * Suggested that we change the settings in the palm so that it doesn't ask about connecting to the GPS.
+  * Suggested that we change the settings in the Palm so that it doesn't ask about connecting to the GPS.
+  * Suggested changing settings so that the Palm doesn't ask so much about using HTTP connections also.
+  * Said it was not immediately obvious that the result represents a route.
+  * Wasn't sure that the result was correct.
 
 == User #2 ==
   * Didn't understand what "Pause" was for.
