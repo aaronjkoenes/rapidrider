@@ -1,17 +1,16 @@
 
-
 import java.util.Vector;
 
 public class BusRoute {
 
 	private String routeName;
-
-	private Vector myStops;
+	private Vector<BusStop> myStops;
 
 	// Creates a new bus route with a name.
 	public BusRoute(String name) {
 		routeName = name;
-		myStops = new Vector();
+		// We can parameterize in the server!
+		myStops = new Vector<BusStop>();
 	}
 
 	public int routeLength() {
