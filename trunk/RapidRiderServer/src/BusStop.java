@@ -1,62 +1,77 @@
-
-
+/**
+ * The BusStop class models Rapid bus stops. Each stop has a name and a
+ * location.
+ */
 public class BusStop {
 
 	private SimpleLoc myLoc;
-	private String id;
 	private String myName;
 
-	public BusStop() {
-		myLoc = new SimpleLoc();
-	}
-	
+	/**
+	 * Constructs a bus stop with a location and a name.
+	 * 
+	 * @param loc
+	 *            The location of the bus stop.
+	 * @param name
+	 *            The name of the bus stop.
+	 */
 	public BusStop(SimpleLoc loc, String name) {
 		myLoc = loc;
 		myName = name;
 	}
 
+	/**
+	 * Gets the location of the bus stop.
+	 * 
+	 * @return SimpleLoc
+	 */
 	public SimpleLoc getLoc() {
 		return myLoc;
 	}
-	
-	public void setId(String _id) {
-		id = _id;
-	}
 
-	public String getId() {
-		return id;
-	}
-	
-	public void setName(String _name) {
-		myName = _name;
-	}
-
+	/**
+	 * Gets the name of the bus stop.
+	 * 
+	 * @return String
+	 */
 	public String getName() {
 		return myName;
 	}
 
-	public void setLatitude(String _latitude) {
-		myLoc.setLat(Double.parseDouble(_latitude));
-	}
-
+	/**
+	 * Gets the latitude of the bus stop.
+	 * 
+	 * @return double
+	 */
 	public double getLatitude() {
 		return myLoc.getLat();
 	}
-	
-	public void setLongitude(String _longitude) {
-		myLoc.setLon(Double.parseDouble(_longitude));
-	}
-	
 
+	/**
+	 * Gets the longitude of the bus stop.
+	 * 
+	 * @return double
+	 */
 	public double getLongitude() {
 		return myLoc.getLon();
 	}
-	
+
+	/**
+	 * Returns a String representation of the location of the bus stop.
+	 * 
+	 * @return String
+	 */
 	public String printLoc() {
 		return myLoc.printLoc();
 	}
-	
+
+	/**
+	 * Returns a String representation of the bus stop that includes its name
+	 * and its location.
+	 * 
+	 * @return String
+	 */
 	public String toString() {
-		return myName + " " + id + myLoc.toString();
+		return myName + " " + myLoc.toString();
 	}
 }

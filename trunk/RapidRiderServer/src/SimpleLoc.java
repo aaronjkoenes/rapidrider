@@ -1,48 +1,60 @@
-
+/**
+ * The SimpleLoc class represents a location with a latitude and longitude.
+ */
 public class SimpleLoc {
 
-	private double myLat;
+	private double myLat, myLon;
 
-	private double myLon;
-
-	public SimpleLoc() {
-		myLat = Double.NaN;
-		myLon = Double.NaN;
-	}
-
+	/**
+	 * Constructs a location from the given latitude and longitude.
+	 * 
+	 * @param lat
+	 *            The latitude.
+	 * @param lon
+	 *            The longitude.
+	 */
 	public SimpleLoc(double lat, double lon) {
 		myLat = lat;
 		myLon = lon;
 	}
 
+	/**
+	 * Gets the latitude of the location.
+	 * 
+	 * @return double
+	 */
 	public double getLat() {
 		return myLat;
 	}
 
+	/**
+	 * Gets the longitude of the location.
+	 * 
+	 * @return double
+	 */
 	public double getLon() {
 		return myLon;
 	}
 
-	public void setLat(double lat) {
-		myLat = lat;
-	}
-
-	public void setLon(double lon) {
-		myLon = lon;
-	}
-
+	/**
+	 * Returns a String representation of the location.
+	 * 
+	 * @return String
+	 */
 	public String printLoc() {
-		return String.valueOf(myLat) + ", " + String.valueOf(myLon);
+		return myLat + ", " + myLon;
 	}
 
-	// TODO test.
-	public double distanceTo(SimpleLoc tar) {
-		double latDif = Math.abs(myLat) - Math.abs(tar.getLat());
-		double lonDif = Math.abs(myLon) - Math.abs(tar.getLon());
-		System.out.println(myLat + " " + myLon + " " + latDif + " " + lonDif
-				+ " " + latDif * latDif + " " + lonDif * lonDif);
-		double dist = Math.sqrt((Math.pow((myLat - tar.getLat()), 2))
-				+ (Math.pow((myLon - tar.getLon()), 2)));
-		return dist;
+	/**
+	 * Calculates the distance from this location to the target location.
+	 * 
+	 * @param target
+	 *            The location to find the distance to from this one.
+	 * 
+	 * @return double
+	 */
+	public double distanceTo(SimpleLoc target) {
+		return Math.sqrt((Math.pow((myLat - target.getLat()), 2))
+				+ (Math.pow((myLon - target.getLon()), 2)));
 	}
 }
