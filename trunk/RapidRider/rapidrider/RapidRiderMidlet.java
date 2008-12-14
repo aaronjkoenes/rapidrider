@@ -7,7 +7,9 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
-// The main Midlet class for the RapidRider application.
+/**
+ * RapidRiderMidlet is the main midlet class for the RapidRider application.
+ */
 public class RapidRiderMidlet extends MIDlet implements CommandListener {
 
 	// The command buttons for the GUI.
@@ -15,42 +17,48 @@ public class RapidRiderMidlet extends MIDlet implements CommandListener {
 
 	// An object that allows us to communicate with the GPS
 	private GPSDevice device;
+
 	// I don't need to comment all of this..
 	private DisplayScreen screen;
+
 	private Command cmdGetRoute;
+
 	private DirectionsFetcher fetcher;
 
-	// Construct a new RapidRider midlet.
+	/**
+	 * Constructs a RapidRider midlet.
+	 */
 	public RapidRiderMidlet() {
+		// Setup the screen.
 		screen = new DisplayScreen();
 		cmdExit = new Command("Exit", Command.EXIT, 1);
 		cmdPause = new Command("Pause", Command.ITEM, 1);
 		cmdRestart = new Command("Restart", Command.ITEM, 1);
 		cmdGetRoute = new Command("Get Route", Command.OK, 1);
 
-		// WHY does the GPS device need to know the screen??
-		// Because it directly updates the screen.
+		// Initialize objects for communicating with the world.
 		device = new GPSDevice(screen);
-
-		// Haha, now I mimic that setup....
 		fetcher = new DirectionsFetcher(screen);
 
-		// Why are commands added here?
-		// But other things on the screen added other places?
+		// Add commands to the screen.
 		screen.addCommand(cmdExit);
 		screen.addCommand(cmdPause);
 		screen.addCommand(cmdGetRoute);
 		screen.setCommandListener(this);
 	}
 
-	// Start the application initially.
+	/**
+	 * Starts the midlet initially.
+	 */
 	protected void startApp() throws MIDletStateChangeException {
 		Display.getDisplay(this).setCurrent(screen);
 		screen.start();
 		device.start();
 	}
 
-	// Pause the application.
+	/**
+	 * Pauses the midlet.
+	 */
 	protected void pauseApp() {
 		screen.stop();
 		device.stop();
@@ -60,7 +68,9 @@ public class RapidRiderMidlet extends MIDlet implements CommandListener {
 		screen.addCommand(cmdRestart);
 	}
 
-	// Start the application after it has been paused.
+	/**
+	 * Restarts the midlet after it has been paused.
+	 */
 	protected void restartApp() {
 		screen.start();
 		device.start();
@@ -70,18 +80,20 @@ public class RapidRiderMidlet extends MIDlet implements CommandListener {
 		screen.addCommand(cmdGetRoute);
 	}
 
-	// The midlet is destroyed when it is exited.
+	/**
+	 * Destroys the midlet when it is exited.
+	 */
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
 		screen.stop();
 		device.stop();
 		screen = null;
-		System.gc(); // Garbage collect. I believe.
+		System.gc(); // Garbage collect.
 	}
 
-	// This method is called when an action is performed.
+	/**
+	 * Responds to button taps.
+	 */
 	public void commandAction(Command c, Displayable d) {
-		// TODO Question: What is d ???
-
 		if (c == cmdExit) {
 			try {
 				// Do MIDLet resource cleanup (see above).
