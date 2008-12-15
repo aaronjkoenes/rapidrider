@@ -29,3 +29,7 @@
 
 
 == Troubleshooting ==
+  * The Palm can not get the Origin Bus Stop and Destination Bus Stop.
+     * The Palm has to be connected to a Wi-Fi connection in order to communicate with the Server to get the Bus Stops.
+  * The Palm can not get my current location.
+     * The GPS device has to be outside in the open to communicate with the Satellites in order to get your current location. 
