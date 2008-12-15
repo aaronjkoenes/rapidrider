@@ -1,3 +1,9 @@
+
+
+
+
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,6 +18,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
+
 
 /**
  * The RapidRiderServlet class is a JBoss servlet.
@@ -226,8 +235,7 @@ public class RapidRiderServlet extends HttpServlet {
 	 * @param s
 	 *            The String to modify.
 	 */
-	// TODO test.
-	private String replaceEscapeCharacters(String stopName) {
+	public String replaceEscapeCharacters(String stopName) {
 		String revisedStopName = "";
 		// TODO: Should we use a character array instead of repeatedly adding to
 		// immutable string objects?
