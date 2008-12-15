@@ -473,6 +473,7 @@
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[1]" type="UMLActor" guid="yCU3V938m0a10tdEu2NUpgAA">
 <XPD:ATTR name="Name" type="string">Database</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">The database is a PostgreSQL relational database.</XPD:ATTR>
 <XPD:REF name="Namespace">sDrzwoYO+kOVimpfvHTWwQAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">6</XPD:ATTR>
 <XPD:REF name="Views[0]">FUgFVxJKKkW1n53y6uZKxgAA</XPD:REF>
@@ -1669,6 +1670,7 @@ EXTENSIONS:
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[6]" type="UMLActor" guid="PzeEoaS+dka/cOwHBuLBMQAA">
 <XPD:ATTR name="Name" type="string">GPS Device</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">The GPS device is communicated with through the GPSDevice class.</XPD:ATTR>
 <XPD:REF name="Namespace">sDrzwoYO+kOVimpfvHTWwQAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">3</XPD:ATTR>
 <XPD:REF name="Views[0]">SEsrJdmcp0Wq9qscrQlL8gAA</XPD:REF>
@@ -1745,6 +1747,9 @@ EXTENSIONS:
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[14]" type="UMLActor" guid="7GeIIQJLxkmErhqsHpWVoQAA">
 <XPD:ATTR name="Name" type="string">Server</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">Given the current location of the user and a description of the desired destination, the server provides XML data that describes the directions for the user.
+
+The code for communicating with the server on the client side is found in the DirectionsFetcher class.</XPD:ATTR>
 <XPD:REF name="Namespace">sDrzwoYO+kOVimpfvHTWwQAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">6</XPD:ATTR>
 <XPD:REF name="Views[0]">qRfWn7PxKEW46LvCb8cl+AAA</XPD:REF>
@@ -1908,7 +1913,7 @@ EXTENSIONS:
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="aAy0L2tcTk6RPkpL7mMn+QAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="aq5vSXY1oEyBVb9XOYge2wAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">RapidRider</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">RapidRiderMidlet</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Ou+siNooz0yn+Z1KPo2a3gAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3398,7 +3403,8 @@ EXTENSIONS:
 </XPD:OBJ>
 <XPD:ATTR name="#OwnedElements" type="integer">33</XPD:ATTR>
 <XPD:OBJ name="OwnedElements[0]" type="UMLClass" guid="ASsyFxJHTUK+nZizFiFAyAAA">
-<XPD:ATTR name="Name" type="string">RapidRider</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">RapidRiderMidlet</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">The RapidRiderMidlet class is the main midlet for the RapidRider application.</XPD:ATTR>
 <XPD:REF name="Namespace">ce9pPhIMokOEYTSmIC8N+QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">6XkCZwrcrEuUQdGu7d0f8wAA</XPD:REF>
@@ -3429,6 +3435,7 @@ EXTENSIONS:
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[2]" type="UMLClass" guid="+rixI+OO+k6RFTasxGiYCQAA">
 <XPD:ATTR name="Name" type="string">Location</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">The Location class, called SimpleLoc in the code, represents a location with a latitude and longitude.</XPD:ATTR>
 <XPD:REF name="Namespace">ce9pPhIMokOEYTSmIC8N+QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">q+w4zBCeoEui0+hxSoZFDAAA</XPD:REF>
@@ -3487,6 +3494,7 @@ EXTENSIONS:
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[4]" type="UMLClass" guid="oGbPYVR71kez+0sTbdJyfwAA">
 <XPD:ATTR name="Name" type="string">BusStop</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">The BusStop class models Rapid bus stops.</XPD:ATTR>
 <XPD:REF name="Namespace">ce9pPhIMokOEYTSmIC8N+QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">J0c6RUdcPki3xz2fPcOLUwAA</XPD:REF>
@@ -3513,6 +3521,7 @@ EXTENSIONS:
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[5]" type="UMLClass" guid="HQVro+pGBkO9KArJizIZJwAA">
 <XPD:ATTR name="Name" type="string">BusRoute</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">The BusRoute class models Rapid bus routes.</XPD:ATTR>
 <XPD:REF name="Namespace">ce9pPhIMokOEYTSmIC8N+QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">Hlb7OmbRGUu2J8h1ZfMQfQAA</XPD:REF>
@@ -3612,6 +3621,7 @@ EXTENSIONS:
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[10]" type="UMLClass" guid="GsyvXeVK/0KUMVc0I1zljwAA">
 <XPD:ATTR name="Name" type="string">StopTimes</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">	</XPD:ATTR>
 <XPD:REF name="Namespace">ce9pPhIMokOEYTSmIC8N+QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">o+p5o04wukio3ZiEr7B7cAAA</XPD:REF>
@@ -4066,6 +4076,7 @@ EXTENSIONS:
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[29]" type="UMLClass" guid="xgh791RRPU2S0ebmH0G5fwAA">
 <XPD:ATTR name="Name" type="string">Directions</XPD:ATTR>
+<XPD:ATTR name="Documentation" type="string">The Directions class represents directions for the user to ride the Rapid.</XPD:ATTR>
 <XPD:REF name="Namespace">ce9pPhIMokOEYTSmIC8N+QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">zlQ9Rz/U0keYE6id1RJ3uQAA</XPD:REF>
