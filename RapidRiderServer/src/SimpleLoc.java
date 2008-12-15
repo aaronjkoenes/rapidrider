@@ -1,3 +1,5 @@
+
+
 /**
  * The SimpleLoc class represents a location with a latitude and longitude.
  */
