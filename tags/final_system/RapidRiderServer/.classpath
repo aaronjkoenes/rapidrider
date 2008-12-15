@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry path="src" kind="src"/>
+	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"/>
+	<classpathentry path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4" exported="true" kind="con"/>
+	<classpathentry path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0" exported="true" kind="con"/>
+	<classpathentry path="PSQL" exported="true" kind="var"/>
+	<classpathentry path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1" kind="con"/>
+	<classpathentry path="bin" kind="output"/>
+</classpath>
